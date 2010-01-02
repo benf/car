@@ -45,8 +45,8 @@ ISR (USART_RXC_vect) {
 	PORTC ^= (1 << PC1);
 
 	// loopback
-//	tmp = UDR;
-//	rf02_send_data(&tmp, 1);
+	// tmp = UDR;
+	// rf02_send_data(&tmp, 1);
 }
 
 int main(void) {
