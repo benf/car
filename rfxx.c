@@ -1,5 +1,7 @@
 #include <avr/io.h>
+
 #include "rf12_cfg.h"
+#include "rfxx.h"
 
 void _delay_ms(double ms);
 
@@ -13,26 +15,20 @@ uint16_t temp = 0;
 	PORT_SPI &= ~(1 << SPI_SS);
 	
 	for (i = 0; i < 16; ++i) {
-		
-
-//		PORT_SPI &= ~(1 << SPI_SCK);
-
 		if (aCmd & (1 << 15))
 			PORT_SPI |=  (1 << SPI_MOSI);
 		else
 			PORT_SPI &= ~(1 << SPI_MOSI);
 
 		PORT_SPI |=  (1 << SPI_SCK);
-    
+	  
 		temp <<= 1;
 		if (PIN_SPI & (1 << SPI_MISO))
 			temp |= 0x0001;
 
 		PORT_SPI &= ~(1 << SPI_SCK);
 		aCmd <<= 1;
-  }
-
-//	PORT_SPI &= ~(1 << SPI_SCK);
+	}
 	PORT_SPI |= (1 << SPI_SS);
 	return temp;
 #else
@@ -68,17 +64,17 @@ uint16_t temp = 0;
 
 
 void RF02B_SEND(uint8_t data) {
-   uint8_t i;
-   for (i = 0; i < 8; ++i) {
-      while (  PINB & (1 << RFXX_nIRQ)); // Polling nIRQ
-      while (!(PINB & (1 << RFXX_nIRQ)));
+	 uint8_t i;
+	 for (i = 0; i < 8; ++i) {
+	    while (  PINB & (1 << RFXX_nIRQ)); // Polling nIRQ
+	    while (!(PINB & (1 << RFXX_nIRQ)));
 
 			if (data & (1 << 7))
-        PORTB |=  (1 << RFXX_FSK);
-      else
-        PORTB &= ~(1 << RFXX_FSK);
+	      PORTB |=  (1 << RFXX_FSK);
+	    else
+	      PORTB &= ~(1 << RFXX_FSK);
 	    data <<= 1;
-  }
+	}
 }
 
 #ifdef RFXX_nIRQ
@@ -150,8 +146,7 @@ uint8_t RF01_RDFIFO(void) {
 	
 	uint8_t tmp;
 	
-	// read two bytes (status bytes) (
-	// 
+	// read two bytes (status bytes)
 	for (i = 0; i < 2; ++i) {
 	  SPDR = 0x00;
 	  while ((SPSR & (1 << SPIF)) == 0);
@@ -171,7 +166,7 @@ uint8_t RF01_RDFIFO(void) {
 uint8_t rf12_recv(void) {
 
 	uint16_t data;
-//	while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ));
+	// while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ));
 
 	RFXX_WRT_CMD(0x0000);
 	data = RFXX_WRT_CMD(0xb000);
@@ -218,15 +213,15 @@ void rf02_send_data(uint8_t *data, uint8_t num) {
  	RF02B_SEND(0xAA); // PREAMBLE
 
 	RF02B_SEND(0x2D);//HEAD HI BYTE
-    RF02B_SEND(0xD4);//HEAD LOW BYTE
+	  RF02B_SEND(0xD4);//HEAD LOW BYTE
 
 	uint8_t i;
 	for (i = 0; i < num; ++i)
 		RF02B_SEND(data[i]);
 	
 	RF02B_SEND(0xAA);     // DUMMY BYTE
-//	RF02B_SEND(0xAA);     // DUMMY BYTE
-//	RF02B_SEND(0xAA);     // DUMMY BYTE
+	//RF02B_SEND(0xAA);     // DUMMY BYTE
+	//RF02B_SEND(0xAA);     // DUMMY BYTE
 	RFXX_WRT_CMD(0xC001); // CLOSE TX
 }
 
@@ -251,30 +246,30 @@ void rf12_init(uint8_t transfer) {
 	RFXX_WRT_CMD(0x8209 | (transfer ? 0x0030 : 0x00D0));
  // RFXX_WRT_CMD(0x82D9);//ER,EBB,!et,ES,EX,!eb,!ew,DC
 
-  RFXX_WRT_CMD(0xA640);//434MHz
-  RFXX_WRT_CMD(0xC647);//4.8kbps
-  RFXX_WRT_CMD(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
-  RFXX_WRT_CMD(0xC2AC);//AL,!ml,DIG,DQD4
-  RFXX_WRT_CMD(0xCA81);//FIFO8,SYNC,!ff,DR{
+	RFXX_WRT_CMD(0xA640);//434MHz
+	RFXX_WRT_CMD(0xC647);//4.8kbps
+	RFXX_WRT_CMD(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
+	RFXX_WRT_CMD(0xC2AC);//AL,!ml,DIG,DQD4
+	RFXX_WRT_CMD(0xCA81);//FIFO8,SYNC,!ff,DR{
 	RFXX_WRT_CMD(0x80D8);//EL,EF,433band,12.5pF
 
 	RFXX_WRT_CMD(0x8209 | (transfer ? 0x0030 : 0x00D0));
- // RFXX_WRT_CMD(0x82D9);//ER,EBB,!et,ES,EX,!eb,!ew,DC
+	// RFXX_WRT_CMD(0x82D9);//ER,EBB,!et,ES,EX,!eb,!ew,DC
 
-  RFXX_WRT_CMD(0xA640);//434MHz
-  RFXX_WRT_CMD(0xC647);//4.8kbps
-  RFXX_WRT_CMD(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
-  RFXX_WRT_CMD(0xC2AC);//AL,!ml,DIG,DQD4
-  RFXX_WRT_CMD(0xCA81);//FIFO8,SYNC,!ff,DR
-  RFXX_WRT_CMD(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
-  RFXX_WRT_CMD(0x9850);//!mp,9810=30kHz,MAX OUT
-  RFXX_WRT_CMD(0xE000);//NOT USE
+	RFXX_WRT_CMD(0xA640);//434MHz
+	RFXX_WRT_CMD(0xC647);//4.8kbps
+	RFXX_WRT_CMD(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
+	RFXX_WRT_CMD(0xC2AC);//AL,!ml,DIG,DQD4
+	RFXX_WRT_CMD(0xCA81);//FIFO8,SYNC,!ff,DR
+	RFXX_WRT_CMD(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
+	RFXX_WRT_CMD(0x9850);//!mp,9810=30kHz,MAX OUT
+	RFXX_WRT_CMD(0xE000);//NOT USE
 
-  RFXX_WRT_CMD(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
-  RFXX_WRT_CMD(0x9850);//!mp,9810=30kHz,MAX OUT
-  RFXX_WRT_CMD(0xE000);//NOT USE
-  RFXX_WRT_CMD(0xC800);//NOT USE
-  RFXX_WRT_CMD(0xC400);//1.66MHz,2.2V
+	RFXX_WRT_CMD(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
+	RFXX_WRT_CMD(0x9850);//!mp,9810=30kHz,MAX OUT
+	RFXX_WRT_CMD(0xE000);//NOT USE
+	RFXX_WRT_CMD(0xC800);//NOT USE
+	RFXX_WRT_CMD(0xC400);//1.66MHz,2.2V
 
 }
 
