@@ -26,12 +26,12 @@ volatile uint8_t queue = 0;
 /*! interupt */
 ISR (USART_RXC_vect) {
 	
-	//PORTD ^= 0xff;
 	++id;
 	tmp = UDR;
 
-	if (tmp == '_')
+	if (tmp == 0xAA)
 		id = 0;
+
 	buffer[id] = tmp;
 
 	if (id == 2) {
@@ -40,10 +40,6 @@ ISR (USART_RXC_vect) {
 
 
 	PORTC ^= (1 << PC1);
-
-	// loopback
-	// tmp = UDR;
-	// rf02_send_data(&tmp, 1);
 }
 
 int main(void) {

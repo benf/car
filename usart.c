@@ -15,7 +15,7 @@ void usart_transmit(unsigned char data) {
 
 int uputc(unsigned char c) {
 	usart_transmit(c);
-  return 0;
+	return 0;
 }
  
 void uart_puts(char *s) {
