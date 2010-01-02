@@ -1,3 +1,8 @@
+#include <avr/io.h>
+
+#include "usart_cfg.h"
+#include "usart.h"
+
 unsigned char usart_receive(void) {
 	while ((UCSRA & (1 << RXC)) == 0);
 	return UDR;
@@ -18,7 +23,7 @@ void uart_puts(char *s) {
 		uputc(*s++);
 }
 
-static void init_usart(void) {
+void init_usart(void) {
 	UCSRB |= (1 << TXEN)  | (1 << RXEN)  | (1 << RXCIE);    // UART TX RX einschalten + RX IRQ
 	UCSRC |= (1 << URSEL) | (1 << UCSZ1) | (1 << UCSZ0);    // Asynchron 8N1 
 
@@ -34,3 +39,5 @@ static void init_usart(void) {
 	UBRRL = UBRR_VAL & 0xFF;
 	*/
 }
+
+/* vim: set sts=0: */

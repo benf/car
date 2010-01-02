@@ -8,17 +8,14 @@
 #include "rf12_cfg.h"
 #include "rfxx.h"
 
-
 #define PORT_LED     PORTC
 #define DDR_LED      DDRC
-#define LED_OUTPUT() DDR_LED  |= (1 << PC1)
-#define LED0_ON()    PORT_LED &= ~(1<<PC1)
-#define LED0_OFF()   PORT_LED |= (1<<PC1)
-#define LED0_TRG()   PORT_LED ^= (1<<PC1)
-/*
-uint8_t RF_RXBUF[22];
-volatile uint8_t num = 0;
-*/
+#define LED_OUTPUT() DDR_LED  |=  (1 << PC1)
+#define LED0_ON()    PORT_LED &= ~(1 << PC1)
+#define LED0_OFF()   PORT_LED |=  (1 << PC1)
+#define LED0_TRG()   PORT_LED ^=  (1 << PC1)
+
+
 volatile uint8_t id = 0;
 
 volatile uint8_t action;
@@ -114,12 +111,11 @@ ISR (INT0_vect) {
 
 int main(void)
 {
+	_delay_ms(200);
 	rfxx_init();
 	rf12_init(0);
 
 
-	LED_OUTPUT();
-	DDRC = 0xff;
 
 	RFXX_nIRQ_PORT  &= ~(1 << RFXX_nIRQ);
 
@@ -132,11 +128,6 @@ int main(void)
 	// enable interrupts (global)
 	//sei();
 
-
-	DDRA = 0xff;
-
-	DDRC  |=  (1 << DDC5);
-	PORTC |=  (1 << PC5);
 
 	
 	DDR_ENGINE |= (1 << ENGINE_LEFT) | (1 << ENGINE_RIGHT) | (1 << ENGINE_ENABLE);
@@ -157,6 +148,16 @@ int main(void)
 	OCR1A   = 0;
 	TCCR1A  =  (1 << COM1A1) | (1 << WGM12) | (1 << WGM11) | (1 << WGM10);
 	TCCR1B  =  (1 << CS10);
+
+	// things just needed for debugging
+	DDRA = 0xff;
+
+	LED_OUTPUT();
+	DDRC = 0xff;
+
+	DDRC  |=  (1 << DDC5);
+	PORTC |=  (1 << PC5);
+  // </things>
 
 	while (1) {
 		while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ));
@@ -189,3 +190,5 @@ int main(void)
 		}
 	}
 }
+
+/* vim: set sts=0: */

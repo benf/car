@@ -8,9 +8,6 @@
 #include <util/delay.h>
 #include <util/crc16.h>
 
-#define BAUD 9600UL
-#include <util/setbaud.h>
-
 #include "rf12_cfg.h"
 
 #include "rfxx.h"
@@ -58,6 +55,7 @@ int main(void) {
 	DDRC  =  0xff;
 
 	init_usart();
+	_delay_ms(200);
 	rfxx_init();
 	rf12_init(1);
 
@@ -111,3 +109,4 @@ int main(void) {
 	return 0;
 }
 
+/* vim: set sts=0: */
