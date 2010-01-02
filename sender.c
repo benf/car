@@ -8,9 +8,6 @@
 #include <util/delay.h>
 #include <util/crc16.h>
 
-#define BAUD 9600UL
-#include <util/setbaud.h>
-
 #include "rf12_cfg.h"
 
 #include "rfxx.h"
