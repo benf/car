@@ -40,7 +40,10 @@ uint16_t a2d(uint8_t mux)
 
 void setLED(uint8_t p)
 {
-	PORTD |= (p << DDD5);
+	if (p)
+		PORTD |=  (1 << PD5);
+	else
+		PORTD &= ~(1 << PD5);
 }
 
 int main (void) {
