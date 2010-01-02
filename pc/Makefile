@@ -1,4 +1,4 @@
 joystick: joystick.c
-	gcc -o joystick joystick.c
+	$(CC) -o joystick joystick.c
 clean:
-	rm joystick
+	rm -f joystick

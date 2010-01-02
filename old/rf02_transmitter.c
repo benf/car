@@ -55,12 +55,12 @@ ISR (INT0_vect) {
 }
 
 void rf02_init(void) {
-	RFXX_WRT_CMD(0xCC00);
-	RFXX_WRT_CMD(0x8B81); // 433BAND,+/-60kHz
-	RFXX_WRT_CMD(0xA640); // 434MHz
-	RFXX_WRT_CMD(0xC847); // 4.8kbps
-	RFXX_WRT_CMD(0xC220); // ENABLE BIT SYNC
-	RFXX_WRT_CMD(0xC001); // CLOSE ALL
+	rfxx_wrt_cmd(0xCC00);
+	rfxx_wrt_cmd(0x8B81); // 433BAND,+/-60kHz
+	rfxx_wrt_cmd(0xA640); // 434MHz
+	rfxx_wrt_cmd(0xC847); // 4.8kbps
+	rfxx_wrt_cmd(0xC220); // ENABLE BIT SYNC
+	rfxx_wrt_cmd(0xC001); // CLOSE ALL
 
 	PORTB = (1 << RFXX_FSK);
 }

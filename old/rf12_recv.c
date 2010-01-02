@@ -85,7 +85,7 @@ void RFXX_PORT_INIT(void){
   DATA_OUT();
 }
 /*
-unsigned int RFXX_WRT_CMD(unsigned int aCmd){
+unsigned int rfxx_wrt_cmd(unsigned int aCmd){
   unsigned char i;
   unsigned int temp;
   temp=0;
@@ -110,26 +110,26 @@ unsigned int RFXX_WRT_CMD(unsigned int aCmd){
 }
 */
 void RF12_INIT(void){
-  RFXX_WRT_CMD(0x80D8);//EL,EF,433band,12.5pF
+  rfxx_wrt_cmd(0x80D8);//EL,EF,433band,12.5pF
 
-  RFXX_WRT_CMD(0x82D9);//!er,!ebb,ET,ES,EX,!eb,!ew,DC
-  RFXX_WRT_CMD(0xA640);//434MHz
-  RFXX_WRT_CMD(0xC647);//4.8kbps
-  RFXX_WRT_CMD(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
-  RFXX_WRT_CMD(0xC2AC);//AL,!ml,DIG,DQD4
-  RFXX_WRT_CMD(0xCA81);//FIFO8,SYNC,!ff,DR
-  RFXX_WRT_CMD(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
-  RFXX_WRT_CMD(0x9850);//!mp,9810=30kHz,MAX OUT
-  RFXX_WRT_CMD(0xE000);//NOT USE
-  RFXX_WRT_CMD(0xC800);//NOT USE
-  RFXX_WRT_CMD(0xC400);//1.66MHz,2.2V
+  rfxx_wrt_cmd(0x82D9);//!er,!ebb,ET,ES,EX,!eb,!ew,DC
+  rfxx_wrt_cmd(0xA640);//434MHz
+  rfxx_wrt_cmd(0xC647);//4.8kbps
+  rfxx_wrt_cmd(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
+  rfxx_wrt_cmd(0xC2AC);//AL,!ml,DIG,DQD4
+  rfxx_wrt_cmd(0xCA81);//FIFO8,SYNC,!ff,DR
+  rfxx_wrt_cmd(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
+  rfxx_wrt_cmd(0x9850);//!mp,9810=30kHz,MAX OUT
+  rfxx_wrt_cmd(0xE000);//NOT USE
+  rfxx_wrt_cmd(0xC800);//NOT USE
+  rfxx_wrt_cmd(0xC400);//1.66MHz,2.2V
 }
 
 unsigned char RF12_RECV(void){
   unsigned int FIFO_data;
   WAIT_IRQ_LOW();
-  RFXX_WRT_CMD(0x0000);
-  FIFO_data=RFXX_WRT_CMD(0xB000);
+  rfxx_wrt_cmd(0x0000);
+  FIFO_data=rfxx_wrt_cmd(0xB000);
   return(FIFO_data&0x00FF);
 }
 void Delay_ms(unsigned char amS){
@@ -165,22 +165,22 @@ void main(void)
 
   //RF12_INIT();
   //Init FIFO
-  //RFXX_WRT_CMD(0xCA81);
+  //rfxx_wrt_cmd(0xCA81);
   while(1){
     //Enable FIFO
-    RFXX_WRT_CMD(0xCA83);
+    rfxx_wrt_cmd(0xCA83);
     ChkSum=0;
     //Receive payload data
     for(i=0;i<16;i++){
       //ChkSum+=RF12_RECV();
 			ChkSum += rf12_recv();
     }
-    	RFXX_WRT_CMD(0xCA83);
+    	rfxx_wrt_cmd(0xCA83);
     //Receive Check sum
 	//	i=RF12_RECV();
 	  i=rf12_recv();
     //Disable FIFO
-    RFXX_WRT_CMD(0xCA81);
+    rfxx_wrt_cmd(0xCA81);
 		
     //Package chkeck
     if(ChkSum==i){

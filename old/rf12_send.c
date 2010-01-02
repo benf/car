@@ -58,7 +58,7 @@ void RFXX_PORT_INIT(void){
   SDO_INPUT();
   SCK_OUTPUT();
 }
-unsigned int RFXX_WRT_CMD(unsigned int aCmd){
+unsigned int rfxx_wrt_cmd(unsigned int aCmd){
   unsigned char i;
   unsigned int temp = 0;
   LOW_SCK();
@@ -82,22 +82,22 @@ unsigned int RFXX_WRT_CMD(unsigned int aCmd){
   return(temp);
 }
 void RF12_INIT(void){
-  RFXX_WRT_CMD(0x80D8);//EL,EF,433band,12.5pF
-  RFXX_WRT_CMD(0x8239);//!er,!ebb,ET,ES,EX,!eb,!ew,DC
-  RFXX_WRT_CMD(0xA640);//A140=430.8MHz
-  RFXX_WRT_CMD(0xC647);//19.2kbps
-  RFXX_WRT_CMD(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
-  RFXX_WRT_CMD(0xC2AC);//AL,!ml,DIG,DQD4
-  RFXX_WRT_CMD(0xCA81);//FIFO8,SYNC,!ff,DR
-  RFXX_WRT_CMD(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
-  RFXX_WRT_CMD(0x9850);//!mp,9810=30kHz,MAX OUT
-  RFXX_WRT_CMD(0xE000);//NOT USE
-  RFXX_WRT_CMD(0xC800);//NOT USE
-  RFXX_WRT_CMD(0xC400);//1.66MHz,2.2V
+  rfxx_wrt_cmd(0x80D8);//EL,EF,433band,12.5pF
+  rfxx_wrt_cmd(0x8239);//!er,!ebb,ET,ES,EX,!eb,!ew,DC
+  rfxx_wrt_cmd(0xA640);//A140=430.8MHz
+  rfxx_wrt_cmd(0xC647);//19.2kbps
+  rfxx_wrt_cmd(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
+  rfxx_wrt_cmd(0xC2AC);//AL,!ml,DIG,DQD4
+  rfxx_wrt_cmd(0xCA81);//FIFO8,SYNC,!ff,DR
+  rfxx_wrt_cmd(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
+  rfxx_wrt_cmd(0x9850);//!mp,9810=30kHz,MAX OUT
+  rfxx_wrt_cmd(0xE000);//NOT USE
+  rfxx_wrt_cmd(0xC800);//NOT USE
+  rfxx_wrt_cmd(0xC400);//1.66MHz,2.2V
 }
-void RF12_SEND(unsigned char aByte){
+void rf12_send(unsigned char aByte){
   while(PIND&(1<<2));//wait for previously TX over
-  RFXX_WRT_CMD(0xB800+aByte);
+  rfxx_wrt_cmd(0xB800+aByte);
 }
 void Delay_ms(unsigned char amS){
   unsigned char i;
@@ -133,52 +133,52 @@ void main(void)
 	DDRD&=~(1<<2);        //PD2(INT0)
 	while(1){
 	 	LEDR_ON();
-	  RFXX_WRT_CMD(0x0000);//read status register
-	  RFXX_WRT_CMD(0x8239);//!er,!ebb,ET,ES,EX,!eb,!ew,DC
+	  rfxx_wrt_cmd(0x0000);//read status register
+	  rfxx_wrt_cmd(0x8239);//!er,!ebb,ET,ES,EX,!eb,!ew,DC
 	  ChkSum=0;
-	  RF12_SEND(0xAA);//PREAMBLE
+	  rf12_send(0xAA);//PREAMBLE
 	 	LEDR_OFF();
-		RF12_SEND(0xAA);//PREAMBLE
-  RF12_SEND(0xAA);//PREAMBLE
-  RF12_SEND(0x2D);//SYNC HI BYTE
-  RF12_SEND(0xD4);//SYNC LOW BYTE
-  RF12_SEND(0x30);//DATA BYTE 0
+		rf12_send(0xAA);//PREAMBLE
+  rf12_send(0xAA);//PREAMBLE
+  rf12_send(0x2D);//SYNC HI BYTE
+  rf12_send(0xD4);//SYNC LOW BYTE
+  rf12_send(0x30);//DATA BYTE 0
   ChkSum+=0x30;
-  RF12_SEND(0x31);//DATA BYTE 1
+  rf12_send(0x31);//DATA BYTE 1
   ChkSum+=0x31;
-  RF12_SEND(0x32);
+  rf12_send(0x32);
   ChkSum+=0x32;
-  RF12_SEND(0x33);
+  rf12_send(0x33);
   ChkSum+=0x33;
-  RF12_SEND(0x34);
+  rf12_send(0x34);
   ChkSum+=0x34;
-  RF12_SEND(0x35);
+  rf12_send(0x35);
      ChkSum+=0x35;
-     RF12_SEND(0x36);
+     rf12_send(0x36);
      ChkSum+=0x36;
-     RF12_SEND(0x37);
+     rf12_send(0x37);
      ChkSum+=0x37;
-     RF12_SEND(0x38);
+     rf12_send(0x38);
      ChkSum+=0x38;
-     RF12_SEND(0x39);
+     rf12_send(0x39);
      ChkSum+=0x39;
-     RF12_SEND(0x3A);
+     rf12_send(0x3A);
      ChkSum+=0x3A;
-     RF12_SEND(0x3B);
+     rf12_send(0x3B);
      ChkSum+=0x3B;
-     RF12_SEND(0x3C);
+     rf12_send(0x3C);
      ChkSum+=0x3C;
-     RF12_SEND(0x3D);
+     rf12_send(0x3D);
      ChkSum+=0x3D;
-     RF12_SEND(0x3E);
+     rf12_send(0x3E);
      ChkSum+=0x3E;
-     RF12_SEND(0x3F);    //DATA BYTE 15
+     rf12_send(0x3F);    //DATA BYTE 15
      ChkSum+=0x3F;
-     RF12_SEND(ChkSum); //send chek sum
-     RF12_SEND(0xAA);//DUMMY BYTE
-     RF12_SEND(0xAA);//DUMMY BYTE
-     RF12_SEND(0xAA);//DUMMY BYTE
-     RFXX_WRT_CMD(0x8201);
+     rf12_send(ChkSum); //send chek sum
+     rf12_send(0xAA);//DUMMY BYTE
+     rf12_send(0xAA);//DUMMY BYTE
+     rf12_send(0xAA);//DUMMY BYTE
+     rfxx_wrt_cmd(0x8201);
      LEDR_OFF();
      LEDG_OFF();
 		 _delay_ms(1000);

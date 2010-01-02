@@ -13,7 +13,7 @@
 #define SPI_MISO  PB6
 #define SPI_SCK   PB7
 
-uint16_t RFXX_WRT_CMD(uint16_t aCmd){
+uint16_t rfxx_wrt_cmd(uint16_t aCmd){
 	uint8_t hi  = (aCmd >> 8) & 0xff;
 	uint8_t low = aCmd & 0xff;
 
@@ -52,12 +52,12 @@ int main(void) {
 	SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0);
 
 	
-  RFXX_WRT_CMD(0xCC00);
-  RFXX_WRT_CMD(0x8B81); // 433BAND,+/-60kHz
-  RFXX_WRT_CMD(0xA640); // 434MHz
-  RFXX_WRT_CMD(0xC847); // 4.8kbps
-  RFXX_WRT_CMD(0xC220); // ENABLE BIT SYNC
-  RFXX_WRT_CMD(0xC001); // CLOSE ALL
+  rfxx_wrt_cmd(0xCC00);
+  rfxx_wrt_cmd(0x8B81); // 433BAND,+/-60kHz
+  rfxx_wrt_cmd(0xA640); // 434MHz
+  rfxx_wrt_cmd(0xC847); // 4.8kbps
+  rfxx_wrt_cmd(0xC220); // ENABLE BIT SYNC
+  rfxx_wrt_cmd(0xC001); // CLOSE ALL
 
 	PORTB |= (1 << RFXX_FSK) | ~(1 << RFXX_nIRQ);
 	DDRB  |= (1 << RFXX_FSK) | ~(1 << RFXX_nIRQ);
@@ -70,7 +70,7 @@ int main(void) {
 
     ChkSum = 0;
 
-    RFXX_WRT_CMD(0xC039); // START TX
+    rfxx_wrt_cmd(0xC039); // START TX
 		PORTC ^= (1 << PC1);
     RF02B_SEND(0xAA); // PREAMBLE
     RF02B_SEND(0xAA); // PREAMBLE
@@ -86,7 +86,7 @@ int main(void) {
 
      RF02B_SEND(ChkSum);   // DATA16
      RF02B_SEND(0xAA);     // DUMMY BYTE
-     RFXX_WRT_CMD(0xC001); // CLOSE TX
+     rfxx_wrt_cmd(0xC001); // CLOSE TX
 
 		 PORTC &= ~(1 << PC0);
 

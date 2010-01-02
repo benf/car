@@ -6,7 +6,7 @@
 void _delay_ms(double ms);
 
 
-uint16_t RFXX_WRT_CMD(uint16_t aCmd){
+uint16_t rfxx_wrt_cmd(uint16_t aCmd){
 uint16_t temp = 0;
 #if SOFT_SPI
 	uint8_t  i;
@@ -61,32 +61,10 @@ uint16_t temp = 0;
 #endif
 }
 
-
-
-void RF02B_SEND(uint8_t data) {
-	 uint8_t i;
-	 for (i = 0; i < 8; ++i) {
-	    while (  PINB & (1 << RFXX_nIRQ)); // Polling nIRQ
-	    while (!(PINB & (1 << RFXX_nIRQ)));
-
-			if (data & (1 << 7))
-	      PORTB |=  (1 << RFXX_FSK);
-	    else
-	      PORTB &= ~(1 << RFXX_FSK);
-	    data <<= 1;
-	}
-}
-
-#ifdef RFXX_nIRQ
-#ifdef RFXX_nIRQ_PIN
-
-void RF12_SEND(uint8_t data) {
+void rf12_send(uint8_t data) {
 	while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ)); // wait for previous TX
-	RFXX_WRT_CMD(0xb800 | data);
+	rfxx_wrt_cmd(0xb800 | data);
 }
-
-#endif 
-#endif
 
 void rfxx_init(void) {
 	//_delay_ms(200);
@@ -99,8 +77,7 @@ void rfxx_init(void) {
 	// disable chip select (low active)
 	PORT_SPI |= (1 << SPI_SS);
 
-
-	DDRD = ~(1 << RFXX_nIRQ);
+	RFXX_nIRQ_PORT &= ~(1 << RFXX_nIRQ);
 
 #if SOFT_SPI
 	PORT_SPI |=  (1 << SPI_MOSI);
@@ -108,6 +85,71 @@ void rfxx_init(void) {
 #else
 	SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0);
 #endif
+
+}
+
+
+uint8_t rf12_recv(void) {
+
+	uint16_t data;
+	// while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ));
+
+	rfxx_wrt_cmd(0x0000);
+	data = rfxx_wrt_cmd(0xb000);
+	
+	return (uint8_t) 0x00ff & data;
+}
+void rf12_recv_data(uint8_t *data, uint8_t num) {
+	uint8_t i;
+	rfxx_wrt_cmd(0xCA81);
+	//Enable FIFO
+	rfxx_wrt_cmd(0xCA83);
+	for (i = 0; i < num; ++i)
+		*data++ = rf12_recv();
+}
+
+void rf12_send_data(uint8_t *data, uint8_t num) {
+	uint8_t i;
+	rfxx_wrt_cmd(0x0000); // WHY THAT? bsp says read status  - but why?
+	rfxx_wrt_cmd(0x8239); // enable TX, PLL, synthesizer, crystal
+
+	// preamble
+	for (i = 0; i < 3; ++i)
+		rf12_send(0xAA);
+
+	// syncron pattern
+	rf12_send(0x2D);
+	rf12_send(0xD4);
+
+	// DATA
+	for (i = 0; i < num; ++i)
+		rf12_data(data[i]);
+
+	// preamble / dummy byte
+	for (i = 0; i < 3; ++i)
+		rf12_data(0xAA);
+
+	rfxx_wrt_cmd(0x8201);
+}
+
+
+void rf12_init(uint8_t transfer) {
+	rfxx_wrt_cmd(0x80D8);//EL,EF,433band,12.5pF
+
+	rfxx_wrt_cmd(0x8209 | (transfer ? 0x0030 : 0x00D0));
+ // rfxx_wrt_cmd(0x82D9);//ER,EBB,!et,ES,EX,!eb,!ew,DC
+
+	rfxx_wrt_cmd(0xA640);//434MHz
+	rfxx_wrt_cmd(0xC647);//4.8kbps
+	rfxx_wrt_cmd(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
+	rfxx_wrt_cmd(0xC2AC);//AL,!ml,DIG,DQD4
+	rfxx_wrt_cmd(0xCA81);//FIFO8,SYNC,!ff,DR{
+	rfxx_wrt_cmd(0x80D8);//EL,EF,433band,12.5pF
+	rfxx_wrt_cmd(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
+	rfxx_wrt_cmd(0x9850);//!mp,9810=30kHz,MAX OUT
+	rfxx_wrt_cmd(0xE000);//NOT USE
+	rfxx_wrt_cmd(0xC800);//NOT USE
+	rfxx_wrt_cmd(0xC400);//1.66MHz,2.2V
 
 }
 
@@ -163,51 +205,21 @@ uint8_t RF01_RDFIFO(void) {
 	return data;
 }
 
-uint8_t rf12_recv(void) {
+void RF02B_SEND(uint8_t data) {
+	 uint8_t i;
+	 for (i = 0; i < 8; ++i) {
+	    while (  PINB & (1 << RFXX_nIRQ)); // Polling nIRQ
+	    while (!(PINB & (1 << RFXX_nIRQ)));
 
-	uint16_t data;
-	// while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ));
-
-	RFXX_WRT_CMD(0x0000);
-	data = RFXX_WRT_CMD(0xb000);
-	
-	return (uint8_t) 0x00ff & data;
+			if (data & (1 << 7))
+	      PORTB |=  (1 << RFXX_FSK);
+	    else
+	      PORTB &= ~(1 << RFXX_FSK);
+	    data <<= 1;
+	}
 }
-void rf12_recv_data(uint8_t *data, uint8_t num) {
-	uint8_t i;
-	RFXX_WRT_CMD(0xCA81);
-	//Enable FIFO
-	RFXX_WRT_CMD(0xCA83);
-	for (i = 0; i < num; ++i)
-		*data++ = rf12_recv();
-}
-
-void rf12_send_data(uint8_t *data, uint8_t num) {
-	uint8_t i;
-	RFXX_WRT_CMD(0x0000); // WHY THAT? bsp says read status  - but why?
-	RFXX_WRT_CMD(0x8239); // enable TX, PLL, synthesizer, crystal
-
-	// preamble
-	for (i = 0; i < 3; ++i)
-		RF12_SEND(0xAA);
-
-	// syncron pattern
-	RF12_SEND(0x2D);
-	RF12_SEND(0xD4);
-
-	// DATA
-	for (i = 0; i < num; ++i)
-		RF12_SEND(data[i]);
-
-	// preamble / dummy byte
-	for (i = 0; i < 3; ++i)
-		RF12_SEND(0xAA);
-
-	RFXX_WRT_CMD(0x8201);
-}
-
 void rf02_send_data(uint8_t *data, uint8_t num) {
-	RFXX_WRT_CMD(0xC039); // START TX
+	rfxx_wrt_cmd(0xC039); // START TX
  	RF02B_SEND(0xAA); // PREAMBLE
  	RF02B_SEND(0xAA); // PREAMBLE
  	RF02B_SEND(0xAA); // PREAMBLE
@@ -222,78 +234,29 @@ void rf02_send_data(uint8_t *data, uint8_t num) {
 	RF02B_SEND(0xAA);     // DUMMY BYTE
 	//RF02B_SEND(0xAA);     // DUMMY BYTE
 	//RF02B_SEND(0xAA);     // DUMMY BYTE
-	RFXX_WRT_CMD(0xC001); // CLOSE TX
+	rfxx_wrt_cmd(0xC001); // CLOSE TX
 }
-
-void rf12_init_send(void) {
-	RFXX_WRT_CMD(0x80D8);//EL,EF,433band,12.5pF
-	RFXX_WRT_CMD(0x8239);//!er,!ebb,ET,ES,EX,!eb,!ew,DC
-	RFXX_WRT_CMD(0xA640);//A140=430.8MHz
-	RFXX_WRT_CMD(0xC647);//19.2kbps
-	RFXX_WRT_CMD(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
-	RFXX_WRT_CMD(0xC2AC);//AL,!ml,DIG,DQD4
-	RFXX_WRT_CMD(0xCA81);//FIFO8,SYNC,!ff,DR
-	RFXX_WRT_CMD(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
-	RFXX_WRT_CMD(0x9850);//!mp,9810=30kHz,MAX OUT
-	RFXX_WRT_CMD(0xE000);//NOT USE
-	RFXX_WRT_CMD(0xC800);//NOT USE
-	RFXX_WRT_CMD(0xC400);//1.66MHz,2.2V
-}
-
-void rf12_init(uint8_t transfer) {
-	RFXX_WRT_CMD(0x80D8);//EL,EF,433band,12.5pF
-
-	RFXX_WRT_CMD(0x8209 | (transfer ? 0x0030 : 0x00D0));
- // RFXX_WRT_CMD(0x82D9);//ER,EBB,!et,ES,EX,!eb,!ew,DC
-
-	RFXX_WRT_CMD(0xA640);//434MHz
-	RFXX_WRT_CMD(0xC647);//4.8kbps
-	RFXX_WRT_CMD(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
-	RFXX_WRT_CMD(0xC2AC);//AL,!ml,DIG,DQD4
-	RFXX_WRT_CMD(0xCA81);//FIFO8,SYNC,!ff,DR{
-	RFXX_WRT_CMD(0x80D8);//EL,EF,433band,12.5pF
-
-	RFXX_WRT_CMD(0x8209 | (transfer ? 0x0030 : 0x00D0));
-	// RFXX_WRT_CMD(0x82D9);//ER,EBB,!et,ES,EX,!eb,!ew,DC
-
-	RFXX_WRT_CMD(0xA640);//434MHz
-	RFXX_WRT_CMD(0xC647);//4.8kbps
-	RFXX_WRT_CMD(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
-	RFXX_WRT_CMD(0xC2AC);//AL,!ml,DIG,DQD4
-	RFXX_WRT_CMD(0xCA81);//FIFO8,SYNC,!ff,DR
-	RFXX_WRT_CMD(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
-	RFXX_WRT_CMD(0x9850);//!mp,9810=30kHz,MAX OUT
-	RFXX_WRT_CMD(0xE000);//NOT USE
-
-	RFXX_WRT_CMD(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
-	RFXX_WRT_CMD(0x9850);//!mp,9810=30kHz,MAX OUT
-	RFXX_WRT_CMD(0xE000);//NOT USE
-	RFXX_WRT_CMD(0xC800);//NOT USE
-	RFXX_WRT_CMD(0xC400);//1.66MHz,2.2V
-
-}
-
 void rf01_init(void) {
-	RFXX_WRT_CMD(0x0000);
-	RFXX_WRT_CMD(0x898A); //433BAND,134kHz
-	RFXX_WRT_CMD(0xA640); //434MHz
-	RFXX_WRT_CMD(0xC847); //4.8kbps
-	RFXX_WRT_CMD(0xC69B); //AFC setting
-	RFXX_WRT_CMD(0xC42A); //Clock recovery manual control,Digital filter,DQD=4
-	RFXX_WRT_CMD(0xC240); //output 1.66MHz
-	RFXX_WRT_CMD(0xC080);
-	RFXX_WRT_CMD(0xCE84); //use FIFO
-	RFXX_WRT_CMD(0xCE87);
-	RFXX_WRT_CMD(0xC081); //OPEN RX
+	rfxx_wrt_cmd(0x0000);
+	rfxx_wrt_cmd(0x898A); //433BAND,134kHz
+	rfxx_wrt_cmd(0xA640); //434MHz
+	rfxx_wrt_cmd(0xC847); //4.8kbps
+	rfxx_wrt_cmd(0xC69B); //AFC setting
+	rfxx_wrt_cmd(0xC42A); //Clock recovery manual control,Digital filter,DQD=4
+	rfxx_wrt_cmd(0xC240); //output 1.66MHz
+	rfxx_wrt_cmd(0xC080);
+	rfxx_wrt_cmd(0xCE84); //use FIFO
+	rfxx_wrt_cmd(0xCE87);
+	rfxx_wrt_cmd(0xC081); //OPEN RX
 }
 
 void rf02_init(void) {
-	RFXX_WRT_CMD(0xCC00);
-	RFXX_WRT_CMD(0x8B81); // 433BAND,+/-60kHz
-	RFXX_WRT_CMD(0xA640); // 434MHz
-	RFXX_WRT_CMD(0xC847); // 4.8kbps
-	RFXX_WRT_CMD(0xC220); // ENABLE BIT SYNC
-	RFXX_WRT_CMD(0xC001); // CLOSE ALL
+	rfxx_wrt_cmd(0xCC00);
+	rfxx_wrt_cmd(0x8B81); // 433BAND,+/-60kHz
+	rfxx_wrt_cmd(0xA640); // 434MHz
+	rfxx_wrt_cmd(0xC847); // 4.8kbps
+	rfxx_wrt_cmd(0xC220); // ENABLE BIT SYNC
+	rfxx_wrt_cmd(0xC001); // CLOSE ALL
 
 	PORTB = (1 << RFXX_FSK);
 }

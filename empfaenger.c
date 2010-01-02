@@ -99,8 +99,8 @@ ISR (INT0_vect) {
 			//if (data == _crc_ibutton_update(_crc_ibutton_update(0, action), param))
 				cmd(action,param);
 			id = 0;
-			RFXX_WRT_CMD(0xCA81); // reset fifo
-			RFXX_WRT_CMD(0xCA83); //  - || -
+			rfxx_wrt_cmd(0xCA81); // reset fifo
+			rfxx_wrt_cmd(0xCA83); //  - || -
 			PORTC |= (1 << PC4);
 
 			break;
@@ -142,7 +142,7 @@ int main(void)
 	RFXX_nIRQ_PORT &= ~(1 << RFXX_nIRQ);
 
 	// enable receiver's FIFO
-	RFXX_WRT_CMD(0xCA83);
+	rfxx_wrt_cmd(0xCA83);
 
 	// PWM configuration
 	OCR1A   = 0;
@@ -183,8 +183,8 @@ int main(void)
 			//	if (data == _crc_ibutton_update(_crc_ibutton_update(0, action), param))
 					cmd(action,param);
 				id = 0;
-				RFXX_WRT_CMD(0xCA81); // reset fifo
-				RFXX_WRT_CMD(0xCA83); //  - || -
+				rfxx_wrt_cmd(0xCA81); // reset fifo
+				rfxx_wrt_cmd(0xCA83); //  - || -
 				PORTC |= (1 << PC4);
 				break;
 		}

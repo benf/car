@@ -34,8 +34,8 @@ ISR (INT0_vect) {
 	PORTC |= (1 << PD2);
 
 	uint8_t data = RF01_RDFIFO();
-	RFXX_WRT_CMD(0xCE84);   // reset FIFO for next frame recognition
-	RFXX_WRT_CMD(0xCE87);
+	rfxx_wrt_cmd(0xCE84);   // reset FIFO for next frame recognition
+	rfxx_wrt_cmd(0xCE87);
 
 	DDRC  |= (1 << DDC1);
 	PORTC ^= (1 << PC1);
@@ -52,8 +52,8 @@ ISR (INT0_vect) {
 	RF_RXBUF[num++] = data;
 	if (num == 17) {
 		num = 0;
-		RFXX_WRT_CMD(0xCE84);   // reset FIFO for next frame recognition
-		RFXX_WRT_CMD(0xCE87);
+		rfxx_wrt_cmd(0xCE84);   // reset FIFO for next frame recognition
+		rfxx_wrt_cmd(0xCE87);
 		ChkSum = 0;
 
 		for (j = 0; j < 16; ++j)
@@ -66,17 +66,17 @@ ISR (INT0_vect) {
 }
 
 void rf01_init(void) {
-	RFXX_WRT_CMD(0x0000);
-	RFXX_WRT_CMD(0x898A); //433BAND,134kHz
-	RFXX_WRT_CMD(0xA640); //434MHz
-	RFXX_WRT_CMD(0xC847); //4.8kbps
-	RFXX_WRT_CMD(0xC69B); //AFC setting
-	RFXX_WRT_CMD(0xC42A); //Clock recovery manual control,Digital filter,DQD=4
-	RFXX_WRT_CMD(0xC240); //output 1.66MHz
-	RFXX_WRT_CMD(0xC080);
-	RFXX_WRT_CMD(0xCE84); //use FIFO
-	RFXX_WRT_CMD(0xCE87);
-	RFXX_WRT_CMD(0xC081); //OPEN RX
+	rfxx_wrt_cmd(0x0000);
+	rfxx_wrt_cmd(0x898A); //433BAND,134kHz
+	rfxx_wrt_cmd(0xA640); //434MHz
+	rfxx_wrt_cmd(0xC847); //4.8kbps
+	rfxx_wrt_cmd(0xC69B); //AFC setting
+	rfxx_wrt_cmd(0xC42A); //Clock recovery manual control,Digital filter,DQD=4
+	rfxx_wrt_cmd(0xC240); //output 1.66MHz
+	rfxx_wrt_cmd(0xC080);
+	rfxx_wrt_cmd(0xCE84); //use FIFO
+	rfxx_wrt_cmd(0xCE87);
+	rfxx_wrt_cmd(0xC081); //OPEN RX
 }
 
 int main(void)

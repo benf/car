@@ -1,8 +1,8 @@
-uint16_t RFXX_WRT_CMD(uint16_t aCmd);
+uint16_t rfxx_wrt_cmd(uint16_t aCmd);
 
 void RF02B_SEND(uint8_t data);
 
-void RF12_SEND(uint8_t data);
+void rf12_send(uint8_t data);
 
 void rfxx_init(void);
 

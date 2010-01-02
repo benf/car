@@ -37,11 +37,11 @@ ISR (INT0_vect) {
 	PORTC ^= (1 << PC2);
 
 	uint8_t data = rf12_recv();
-//	RFXX_WRT_CMD(0xCA81);
-//	RFXX_WRT_CMD(0xCA83);
+//	rfxx_wrt_cmd(0xCA81);
+//	rfxx_wrt_cmd(0xCA83);
 	
-	//RFXX_WRT_CMD(0xCE84);   // reset FIFO for next frame recognition
-	//RFXX_WRT_CMD(0xCE87);
+	//rfxx_wrt_cmd(0xCE84);   // reset FIFO for next frame recognition
+	//rfxx_wrt_cmd(0xCE87);
 
 
 
@@ -76,8 +76,8 @@ ISR (INT0_vect) {
 	RF_RXBUF[num++] = data;
 	if (num == 17) {
 		num = 0;
-//		RFXX_WRT_CMD(0xCE84);   // reset FIFO for next frame recognition
-//		RFXX_WRT_CMD(0xCE87);
+//		rfxx_wrt_cmd(0xCE84);   // reset FIFO for next frame recognition
+//		rfxx_wrt_cmd(0xCE87);
 		ChkSum = 0;
 
 		for (j = 0; j < 16; ++j)
@@ -88,8 +88,8 @@ ISR (INT0_vect) {
 			PORTA = ChkSum;
 		}
 
-		RFXX_WRT_CMD(0xCA81); // reset fifo
-		RFXX_WRT_CMD(0xCA83); //  - || -
+		rfxx_wrt_cmd(0xCA81); // reset fifo
+		rfxx_wrt_cmd(0xCA83); //  - || -
 	}
 }
 
@@ -117,7 +117,7 @@ int main(void)
 	DDRC  |=  (1 << DDC5);
 	PORTC |=  (1 << PC5);
 
-	RFXX_WRT_CMD(0xCA83);
+	rfxx_wrt_cmd(0xCA83);
 
 	while (1);
 	return 0;
