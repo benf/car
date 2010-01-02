@@ -127,3 +127,5 @@ int main() {
 	close(joy_fd);
 	return 0;
 }
+
+/* vim: set sts=0: */

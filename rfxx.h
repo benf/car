@@ -296,3 +296,5 @@ void rf02_init(void) {
 
 	PORTB = (1 << RFXX_FSK);
 }
+
+/* vim: set sts=0: */

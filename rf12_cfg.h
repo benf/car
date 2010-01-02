@@ -12,3 +12,5 @@
 #define SPI_MOSI   PB5
 #define SPI_MISO   PB6
 #define SPI_SCK    PB7
+
+/* vim: set sts=0: */

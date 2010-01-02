@@ -34,3 +34,5 @@ static void init_usart(void) {
 	UBRRL = UBRR_VAL & 0xFF;
 	*/
 }
+
+/* vim: set sts=0: */
