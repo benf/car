@@ -1,18 +1,39 @@
-CFLAGS = -Wall -Os
-LDFLAGS = -L /usr/x86_64-pc-linux-gnu/avr/lib
+all: sender.hex empfaenger.hex
+
+sender.elf:     sender.o rfxx.o usart.o
+empfaenger.elf: empfaenger.o rfxx.o
+
+
 TYPE = atmega16
 
-all: progs
+CC = avr-gcc
 
-progs: main.hex pwm_test.hex pwm_test2.hex pwm_test3.hex uart.hex chip_retter.hex takt_tester.hex rfm12_transmitter.hex rf01_receive.hex rf02_transmitter.hex sender.hex empfaenger.hex rf12_send.hex rf12_recv.hex rf02.old.hex
+LDFLAGS = -L /usr/x86_64-pc-linux-gnu/avr/lib
+CFLAGS = -mmcu=$(TYPE) -Wall -Os
+
+SOURCES := $(wildcard *.c)
+
+.PHONY: all
+
+%.o: 
+	$(CC) -mmcu=$(TYPE) $(CFLAGS) $(LDFLAGS) -c -o $@ $<
+
+%.elf:
+	$(CC) -mmcu=$(TYPE) $(CFLAGS) $(LDFLAGS) -o $@ $+
 
 %.hex: %.elf
 	avr-objcopy -O ihex -R .eeprom $< $@
 
-%.elf: %.c
-	avr-gcc -mmcu=$(TYPE) $(CFLAGS) $(LDFLAGS) -o $@ $<
+clean:
+	rm -f *.o *.elf
+distclean: clean
+	rm -f *.d *.hex
 
-prog:
-	avrdude -p m16 -c stk200 -e -U pwm_test.hex
+ifneq ($(MAKECMDGOALS),clean)
+include $(SOURCES:.c=.d)
+endif
 
+
+%.d: %.c
+	$(CC) -M $< | sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' > $@;
 

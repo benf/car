@@ -111,6 +111,7 @@ ISR (INT0_vect) {
 
 int main(void)
 {
+	_delay_ms(200);
 	rfxx_init();
 	rf12_init(0);
 

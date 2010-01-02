@@ -58,6 +58,7 @@ int main(void) {
 	DDRC  =  0xff;
 
 	init_usart();
+	_delay_ms(200);
 	rfxx_init();
 	rf12_init(1);
 
