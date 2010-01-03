@@ -7,7 +7,7 @@ void _delay_ms(double ms);
 
 
 uint16_t rfxx_wrt_cmd(uint16_t aCmd){
-uint16_t temp = 0;
+	uint16_t temp = 0;
 #if SOFT_SPI
 	uint8_t  i;
 
@@ -32,32 +32,31 @@ uint16_t temp = 0;
 	PORT_SPI |= (1 << SPI_SS);
 	return temp;
 #else
+	// TODO test the updated hardware spi receiption
+	// split 16bit to 2x8bit (
 	uint8_t hi  = (aCmd >> 8) & 0xff;
 	uint8_t low = aCmd & 0xff;
 
 	// chip select (SS low active)
 	PORT_SPI &= ~(1 << SPI_SS);
-	uint8_t tmp;
+
+	// send hi-byte first (write MOSI)
 	SPDR = hi;
-	while ((SPSR & (1 << SPIF)) == 0) {
-	}
-//	tmp = SPDR;
-//	temp = tmp << 8;
+	// wait until transfer is complete
+	while ((SPSR & (1 << SPIF)) == 0);
+	// get answer's hi-byte (read MISO)
+	temp = (SPDR << 8) & 0xff;
 
-	
-	temp <<= 8;
-
+	// send low-byte 
 	SPDR = low;
-	while ((SPSR & (1 << SPIF)) == 0) {
-	}
-	tmp = SPDR;
-
-	temp = tmp;
+	while ((SPSR & (1 << SPIF)) == 0);
+	// get answer's low-byte
+	temp |= SPDR & 0xff;
 
 	// disable chip select
 	PORT_SPI |= (1 << SPI_SS);
 
-	return 0;
+	return temp;
 #endif
 }
 
