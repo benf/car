@@ -127,6 +127,7 @@ void rf12_send_data(uint8_t *data, uint8_t num) {
 	for (i = 0; i < 3; ++i)
 		rf12_send(0xAA);
 
+	// TODO: disabl TX?
 	rfxx_wrt_cmd(0x8201);
 }
 

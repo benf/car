@@ -16,7 +16,7 @@
 #define JOY_DEVICE "/dev/input/js0"
 
 
-inline void tx_cmd(uint8_t cmd, uint8_t param) {
+void tx_cmd(uint8_t cmd, uint8_t param) {
 
 	/* PACKET START INDICATOR
 	 *
@@ -73,11 +73,9 @@ int main() {
 	fcntl(fd, F_SETFL, O_NONBLOCK);
 
 	int8_t dir;
-	// int8_t dir_old = 0;
+	int8_t old_dir = 0;
 	int8_t acc;
-	// int8_t acc_old = 0;
-
-
+	int8_t old_acc = 0;
 
 	while (1) {
 		//read(fd, &js, sizeof(struct js_event));
@@ -105,7 +103,10 @@ int main() {
 				else if (dir == 0xAA)
 					++dir;
 
-				tx_cmd('D', dir);
+				if (old_dir != dir)
+					tx_cmd('D', dir);
+				old_dir = dir;
+
 
 			}
 			// y-direction = throttle
@@ -117,11 +118,14 @@ int main() {
 				else if (acc == 0xAA)
 					++acc;
 
-				tx_cmd('S', acc);
+				if (old_acc != acc)
+					tx_cmd('S', acc);
+				old_acc = acc;
 				
 			}
 
 		}
+		usleep(1);
 
 		/*
 		//dir = axis[0] >> 8;

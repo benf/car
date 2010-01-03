@@ -1,4 +1,4 @@
-#define SOFT_SPI  1
+#define SOFT_SPI  0
 
 #define RFXX_nIRQ_PORT  PORTD
 #define RFXX_nIRQ_PIN   PIND

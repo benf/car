@@ -32,6 +32,7 @@ ISR (USART_RXC_vect) {
 
 	if (id == 2) {
 		rf12_send_data(buffer + 1, 2);
+		PORTC ^= (1 << PC0);
 	}
 	PORTC ^= (1 << PC1);
 }

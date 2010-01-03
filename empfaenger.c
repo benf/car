@@ -60,12 +60,12 @@ void cmd(uint8_t _action, int8_t _param) {
 			DIRECTION &= ~(1 << DIR_RIGHT);
 			DIRECTION &= ~(1 << DIR_EN);
 
-		} else if (_param > 50) {
+		} else if (_param > 70) {
 			DIRECTION &= ~(1 << DIR_RIGHT);
 			DIRECTION |=  (1 << DIR_LEFT);
 			DIRECTION |=  (1 << DIR_EN);
 
-		} else if (_param < -50) {
+		} else if (_param < -70) {
 			DIRECTION &= ~(1 << DIR_LEFT);
 			DIRECTION |=  (1 << DIR_RIGHT);
 			DIRECTION |=  (1 << DIR_EN);
