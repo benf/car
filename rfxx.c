@@ -110,7 +110,8 @@ void rf12_recv_data(uint8_t *data, uint8_t num) {
 
 void rf12_send_data(uint8_t *data, uint8_t num) {
 	uint8_t i;
-	rfxx_wrt_cmd(0x0000); // WHY THAT? bsp says read status  - but why?
+	
+	rfxx_wrt_cmd(0x0000); // TODO: figure out WHY this is neccassery for freading FIRO
 	rfxx_wrt_cmd(0x8239); // enable TX, PLL, synthesizer, crystal
 
 	// preamble
