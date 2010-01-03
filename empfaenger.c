@@ -1,4 +1,5 @@
 #define F_CPU 1000000UL
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdint.h>
@@ -34,7 +35,6 @@ volatile uint8_t param;
 #define DIR_EN        PA2
 
 void cmd(uint8_t _action, int8_t _param) {
-
 	if (_action == 'S') {
 		LED0_TRG();
 		if (_param == 0) {
