@@ -123,11 +123,11 @@ void rf12_send_data(uint8_t *data, uint8_t num) {
 
 	// DATA
 	for (i = 0; i < num; ++i)
-		rf12_data(data[i]);
+		rf12_send(data[i]);
 
 	// preamble / dummy byte
 	for (i = 0; i < 3; ++i)
-		rf12_data(0xAA);
+		rf12_send(0xAA);
 
 	rfxx_wrt_cmd(0x8201);
 }
