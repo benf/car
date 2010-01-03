@@ -128,15 +128,13 @@ int main(void)
 	// enable interrupts (global)
 	//sei();
 
-
-	
+	// 
 	DDR_ENGINE |= (1 << ENGINE_LEFT) | (1 << ENGINE_RIGHT) | (1 << ENGINE_ENABLE);
 	PORT_ENGINE &= ~(1 << ENGINE_ENABLE);
 
-
+	// 
 	DDR_DIRECTION |= (1 << DIR_LEFT) | (1 << DIR_RIGHT) | (1 << DIR_EN);
 	DIRECTION &= ~(1 << DIR_EN);
-
 
 	// Interrupt PIN = Input
 	RFXX_nIRQ_PORT &= ~(1 << RFXX_nIRQ);
