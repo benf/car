@@ -32,6 +32,7 @@ void tx_cmd(uint8_t cmd, uint8_t param) {
 
 	// ensure the data is transmitted NOW
 	fflush(stdout);
+	usleep(10);
 
 }
 
