@@ -73,9 +73,9 @@ int main() {
 	fcntl(fd, F_SETFL, O_NONBLOCK);
 
 	int8_t dir;
-//	int8_t dir_old = 0;
+	// int8_t dir_old = 0;
 	int8_t acc;
-//	int8_t acc_old = 0;
+	// int8_t acc_old = 0;
 
 
 
@@ -97,8 +97,8 @@ int main() {
 		*/
 		if (event.type & JS_EVENT_AXIS) {
 			// x-direction = direction
-			if (js.number == 0) {
-				dir = (js.value >> 8) & 0xff;
+			if (event.number == 0) {
+				dir = (event.value >> 8) & 0xff;
 
 				if (dir < -127)
 				  dir = -127;
@@ -109,8 +109,8 @@ int main() {
 
 			}
 			// y-direction = throttle
-			else if (js.number == 1) {
-				acc = (js.value >> 8) & 0xff;
+			else if (event.number == 1) {
+				acc = (event.value >> 8) & 0xff;
 
 				if (acc < -127)
 				  acc = -127;
