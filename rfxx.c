@@ -7,12 +7,14 @@ void _delay_ms(double ms);
 
 
 uint16_t rfxx_wrt_cmd(uint16_t aCmd){
-	uint16_t temp = 0;
+	uint16_t response = 0;
+
+	// chip select (SS low active)
+	PORT_SPI &= ~(1 << SPI_SS);
 #if SOFT_SPI
 	uint8_t  i;
 
 	PORT_SPI &= ~(1 << SPI_SCK);
-	PORT_SPI &= ~(1 << SPI_SS);
 	
 	for (i = 0; i < 16; ++i) {
 		if (aCmd & (1 << 15))
@@ -22,42 +24,38 @@ uint16_t rfxx_wrt_cmd(uint16_t aCmd){
 
 		PORT_SPI |=  (1 << SPI_SCK);
 	  
-		temp <<= 1;
+		response <<= 1;
 		if (PIN_SPI & (1 << SPI_MISO))
-			temp |= 0x0001;
+			response |= 0x0001;
 
 		PORT_SPI &= ~(1 << SPI_SCK);
 		aCmd <<= 1;
 	}
 	PORT_SPI |= (1 << SPI_SS);
-	return temp;
 #else
 	// TODO test the updated hardware spi receiption
-	// split 16bit to 2x8bit (
+	// split 16bit to 2 x 8bit (
 	uint8_t hi  = (aCmd >> 8) & 0xff;
 	uint8_t low = aCmd & 0xff;
 
-	// chip select (SS low active)
-	PORT_SPI &= ~(1 << SPI_SS);
 
-	// send hi-byte first (write MOSI)
+	// send cmd's hi-byte first (write MOSI)
 	SPDR = hi;
 	// wait until transfer is complete
 	while ((SPSR & (1 << SPIF)) == 0);
-	// get answer's hi-byte (read MISO)
-	temp = (SPDR << 8) & 0xff;
+	// receive answer's hi-byte (read MISO)
+	response = (SPDR << 8) & 0xff;
 
-	// send low-byte 
+	// send cmd's low-byte 
 	SPDR = low;
 	while ((SPSR & (1 << SPIF)) == 0);
-	// get answer's low-byte
-	temp |= SPDR & 0xff;
+	// receive answer's low-byte
+	response |= SPDR & 0xff;
 
+#endif
 	// disable chip select
 	PORT_SPI |= (1 << SPI_SS);
-
-	return temp;
-#endif
+	return response;
 }
 
 void rf12_send(uint8_t data) {
