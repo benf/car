@@ -9,12 +9,9 @@
 #include <util/crc16.h>
 
 #include "rf12_cfg.h"
-
 #include "rfxx.h"
 
-
 #include "usart.h"
-
 
 uint8_t buffer[4];
 
@@ -25,25 +22,22 @@ volatile uint8_t queue = 0;
 
 /*! interupt */
 ISR (USART_RXC_vect) {
-	
 	++id;
 	tmp = UDR;
 
 	if (tmp == 0xAA)
 		id = 0;
-
-	buffer[id] = tmp;
+	else
+		buffer[id] = tmp;
 
 	if (id == 2) {
-		rf12_send_data(buffer+1, 2);
+		rf12_send_data(buffer + 1, 2);
 	}
-
-
 	PORTC ^= (1 << PC1);
 }
 
 int main(void) {
-	uint8_t i, ChkSum;
+	//uint8_t i, ChkSum;
 
 	sei();
 
@@ -59,6 +53,7 @@ int main(void) {
 
 	while (1);
 	return 0;
+	/*
 
 	ChkSum = 0;
 	uint8_t data[17];
@@ -76,7 +71,9 @@ int main(void) {
 		for (i = 0; i < 20; ++i)
 			_delay_ms(100);
 	}
-		/*
+	*/
+	
+	/*
 		tmp = id_saved;
 		if (tmp > id_send) { 
 			rf02_send_data(MEINBUFFER + id_send, tmp-id_send);
@@ -92,7 +89,7 @@ int main(void) {
 	//	rf02_send_data((uint8_t*)"hallo, was geht", 15);
 
 
-	while (1);
+	//while (1);
 	/*{
 		PORTC |= (1 << PC0);
 		rf02_send_data(data, 17);
@@ -102,7 +99,7 @@ int main(void) {
 		  _delay_ms(10);
 	}
 	*/
-	return 0;
+	//return 0;
 }
 
 /* vim: set sts=0: */
