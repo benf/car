@@ -1,0 +1,12 @@
+ATmega16:     http://www.atmel.com/dyn/resources/prod_documents/doc2466.pdf
+L298N:        http://www.st.com/stonline/products/literature/ds/1773.pdf
+
+RFM12:        http://www.hoperf.com/rf_fsk/rfm12.htm
+              rfm12: http://www.hoperf.com/upfile/RFM12.pdf
+              rf12:  http://www.hoperf.com/upfile/RF12.pdf
+              guide: http://www.hoperf.com/upfile/RF12_code.pdf
+
+FT232:        
+
+joystick-api: /usr/src/linux/Documentation/input/joystick-api.txt
+              http://git.kernel.org/?p=linux/kernel/git/stable/linux-2.6.32.y.git;a=blob_plain;f=Documentation/input/joystick-api.txt
