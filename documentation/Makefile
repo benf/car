@@ -1,4 +1,4 @@
 DOC_FILE=Documentation.tex
 
 doc:
-	latex
+	pdflatex -output-format=pdf Dokumentation.tex
