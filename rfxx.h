@@ -24,4 +24,4 @@ void rf01_init(void);
 
 void rf02_init(void);
 
-/* vim: set sts=0: */
+/* vim: set sts=0 fenc=utf-8: */

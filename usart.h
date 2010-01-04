@@ -8,4 +8,4 @@ void uart_puts(char *s);
 
 void init_usart(void);
 
-/* vim: set sts=0: */
+/* vim: set sts=0 fenc=utf-8: */

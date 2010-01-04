@@ -189,4 +189,4 @@ int main(void)
 	}
 }
 
-/* vim: set sts=0: */
+/* vim: set sts=0 fenc=utf-8: */
