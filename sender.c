@@ -31,6 +31,8 @@ ISR (USART_RXC_vect) {
 		buffer[id] = tmp;
 
 	if (id == 2) {
+		// TODO: add crc checksum and check it in empfaenger.c
+
 		rf12_send_data(buffer + 1, 2);
 		PORTC ^= (1 << PC0);
 	}
