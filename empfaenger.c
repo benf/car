@@ -74,7 +74,7 @@ void cmd(uint8_t _action, int8_t _param) {
 
 }
 
-
+/*! TODO: interupt: Wofür die dieser interupt?  */
 ISR (INT0_vect) {
 	cli();
 
@@ -111,6 +111,7 @@ ISR (INT0_vect) {
 
 int main(void)
 {
+	/* TODO: Warum muss hier 200 ms gewartet werden? */
 	_delay_ms(200);
 	rfxx_init();
 	rf12_init(0);
