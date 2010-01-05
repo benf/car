@@ -33,7 +33,6 @@ uint16_t rfxx_wrt_cmd(uint16_t aCmd){
 	}
 	PORT_SPI |= (1 << SPI_SS);
 #else
-	// TODO test the updated hardware spi receiption
 	// split 16bit to 2 x 8bit (
 	uint8_t hi  = (aCmd >> 8) & 0xff;
 	uint8_t low = aCmd & 0xff;
