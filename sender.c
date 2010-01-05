@@ -20,7 +20,14 @@ volatile uint8_t tmp;
 
 volatile uint8_t queue = 0;
 
-/*! TODO: Wofür? interupt for recieving date from RS-232? Ist da richtig? */
+/* Serial Data Input Reception Interrupt (RX/USART)
+ *
+ * this interrupt will be executed, when one byte of incoming data
+ * is received from the pc side (respectively FT232)
+ *
+ * USART is atmels hardware implementation of protocol 
+ * the RS-232 interface also uses
+ */
 ISR (USART_RXC_vect) {
 	++id;
 	tmp = UDR;
