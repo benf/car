@@ -57,6 +57,8 @@ int main(void) {
 	init_usart();
 	_delay_ms(200);
 	rfxx_init();
+	// TODO: replace 0/1 with understandable constants for RX/TX selection
+	// 1 = transfer mode, 0 = receive mode
 	rf12_init(1);
 
 	DDRD &= ~(1 << RFXX_nIRQ);
