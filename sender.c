@@ -20,7 +20,7 @@ volatile uint8_t tmp;
 
 volatile uint8_t queue = 0;
 
-/*! interupt */
+/*! TODO: Wofür? interupt for recieving date from RS-232? Ist da richtig? */
 ISR (USART_RXC_vect) {
 	++id;
 	tmp = UDR;
@@ -56,7 +56,7 @@ int main(void) {
 
 	while (1);
 	return 0;
-	/*
+	/* TODO: Do we need any of the following code?
 
 	ChkSum = 0;
 	uint8_t data[17];
