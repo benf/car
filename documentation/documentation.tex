@@ -32,18 +32,21 @@
 	%% TODO: Bezeichnung des Funkemfängers herreussuchen.
 	Die Schaltung wird über die im Fahrzeug integrieten 10 Volt Spannungsversorungs mit versort.
 	Da der ATMEGA 16 eine Spannungsverogung von 5 Volt benötigt ist ein Festspannungsregler
-	%% TODO:Typ des Festspannungsreglers im Auto
+	%% TODO: Typ des Festspannungsreglers im Auto
 	zwischen Akkumolator und Microkontroler geschaltet.
 
 	\subsection{Motoransteuerung}
 		Für die Ansteuerung der Elektromotoren des Antriebs und der Lenkung sind vier Motortreiber verbaut worden.
-		%% TODO: Motortreiber bezeichung
+		%% TODO: Bezeichnung des Motortreiber
 		Diese sind notwendig um den für den Microcontroler zu hohen Strom für die Motoren zu regulieren.
 		Die Geschwindigkeitsregelung ist mittels der Pulsweitenmodulation im Microcontroler implementiert.
 
-
 \section{Kommuniation mit dem Computer} %% TODO
 	Die Kommunikation zwischen Steuerschaltung und Computer findet über RS-232 statt.
+	...
+	Für den notwendigen 12 Volt-Pegel wird der MAX232 benutzt.
+	...
+	
 
 \section{Funkverbingung zwischen Autokontroler und Steuerkontroler} %% TODO
 
