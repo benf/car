@@ -55,6 +55,7 @@ int main(void) {
 	DDRC  =  0xff;
 
 	init_usart();
+	// wait 200ms for POR initialization (see empfaenger.c for further information)
 	_delay_ms(200);
 	rfxx_init();
 	// TODO: replace 0/1 with understandable constants for RX/TX selection
