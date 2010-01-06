@@ -55,7 +55,7 @@ void cmd(uint8_t _action, int8_t _param) {
 			PORT_ENGINE |=  (1 << ENGINE_RIGHT);
 		}
 	} else if (_action == 'D') {
-		if (_param == 0) {
+		if (_param >= -70 && _param <= 70) {
 			DIRECTION &= ~(1 << DIR_LEFT);
 			DIRECTION &= ~(1 << DIR_RIGHT);
 			DIRECTION &= ~(1 << DIR_EN);
