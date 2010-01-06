@@ -36,10 +36,12 @@
 	zwischen Akkumolator und Microkontroler geschaltet.
 
 	\subsection{Motoransteuerung}
-		Für die Ansteuerung der Elektromotoren des Antriebs und der Lenkung sind vier Motortreiber verbaut worden.
-		%% TODO: Bezeichnung des Motortreiber
+		Für die Ansteuerung der Elektromotoren des Antriebs und der Lenkung sind vier Motortreiber, vom Typ L298, verbaut worden.
+		%% TODO: Bezeichnung des Motortreiber L298 ?!
 		Diese sind notwendig um den für den Microcontroler zu hohen Strom für die Motoren zu regulieren.
 		Die Geschwindigkeitsregelung ist mittels der Pulsweitenmodulation im Microcontroler implementiert.
+		Die verwendeten Bauelemente enthalten zwei Motortreiber. Insgesammt werden zwei Bauelemente und damit vier Motortreiber benutzt.
+		Drei Motortreiber sind für den Antriebsmotor paralel zusammen geschaltet. Diese ist wichtig
 
 \section{Kommuniation mit dem Computer} %% TODO
 	Die Kommunikation zwischen Steuerschaltung und Computer findet über RS-232 statt.
