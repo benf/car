@@ -76,8 +76,8 @@ void cmd(uint8_t _action, int8_t _param) {
 
 /*! TODO: interupt: Wofür die dieser interupt?  */
 ISR (INT2_vect) {
-	cli();
 
+	//cli();
 	PORTC ^= (1 << PC2);
 
 	uint8_t data = rf12_recv();
@@ -105,7 +105,7 @@ ISR (INT2_vect) {
 
 			break;
 	}
-	sei();
+	//sei();
 }
 
 
@@ -131,14 +131,14 @@ int main(void)
 
 	RFXX_nIRQ_PORT  &= ~(1 << RFXX_nIRQ);
 
-	// enable external interrupt 0
-	//GICR  = (1 << INT0);
+	// enable external interrupt 1
+//	MCUCSR &= ~(1 << ISC2);
+	GICR  = (1 << INT2);
 	
 	//not used
 	/////MCUCR = (1 << ISC01) | (1 << ISC00);
 
 	// enable interrupts (global)
-	//sei();
 
 	// 
 	DDR_ENGINE |= (1 << ENGINE_LEFT) | (1 << ENGINE_RIGHT) | (1 << ENGINE_ENABLE);
@@ -167,8 +167,13 @@ int main(void)
 
 	DDRC  |=  (1 << DDC5);
 	PORTC |=  (1 << PC5);
+
+	sei();
   // </things>
 
+	while (1);
+
+#if 0
 	while (1) {
 		while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ));
 
@@ -199,6 +204,7 @@ int main(void)
 				break;
 		}
 	}
+#endif
 }
 
 /* vim: set sts=0 fenc=utf-8: */
