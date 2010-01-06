@@ -75,7 +75,7 @@ void cmd(uint8_t _action, int8_t _param) {
 }
 
 /*! TODO: interupt: Wofür die dieser interupt?  */
-ISR (INT0_vect) {
+ISR (INT2_vect) {
 	cli();
 
 	PORTC ^= (1 << PC2);
