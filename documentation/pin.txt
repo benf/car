@@ -1,0 +1,25 @@
+atmega16 -- funkmodul:
+
+PB4/SS   -> nSEL
+PB5/MOSI -> SDI
+PB6/MISO <- SDO
+PB7/SCK  -> SCK
+
+PD2/INT0 <- nIRQ    // wird vllt noch auf PB2/INT2 geändert, damit funkmodul komplett an PORTB ist
+
+Funkmodul Beschaltung:
+ FSK/DATA/nFFS -> Widerstand 10K -> GND
+ VDD, 2xGND is kla...
+
+atmega16 -> L298
+
+PD0      -> L298_1_INPUT1, L298_1_INPUT4, L298_2_INPUT1
+PD1      -> L298_1_INPUT2, L298_1_INPUT3, L298_2_INPUT2
+
+PD5/OC1A -> L298_1_ENABLEA, L298_1_ENABLEB, L298_2_ENABLEA
+
+// Lenkungstreiber an PORTA sollte noch auf PORTD gelegt werden..
+
+PA0 -> L298_2_INPUT4
+PA1 -> L298_2_INPUT3
+PA2 -> L298_2_ENABLEB
