@@ -16,7 +16,12 @@
 \tableofcontents
 
 \section{Einleitung} %% TODO
-	Diese Projekt-Dokumentation beschreibt die Komplette durchführung des MTP Projektes, den Aufbau der einzenen Schaltungen und einige Technische Erläuterungen.
+	Diese Projekt-Dokumentation beschreibt die Komplette Durchführung des Mikroprozessortechnik-Projektes,
+	den Aufbau der einzelnen Schaltungen und einige Technische Erläuterungen.
+
+	In den folgenden Kapiteln werden die zwei Schaltungen und zusätzliche Entwicklungen und Umbauten erläutert.
+	Als Fahrzeugschaltung wird die Schaltung bezeichnet die in das Fahrzeug verbaut wurde.
+	Die Steuerschaltung ist am Computer angeschlossen und sendet die Steuerinformationen an die Fahrzeugschaltung.
 
 \section{Umbau am Auto} %% TODO
 	Als Grundlage wurde ein Funkferngesteuertes Auto benutzt,
@@ -43,11 +48,18 @@
 		Die verwendeten Bauelemente enthalten zwei Motortreiber. Insgesammt werden zwei Bauelemente und damit vier Motortreiber benutzt.
 		Drei Motortreiber sind für den Antriebsmotor paralel zusammen geschaltet. Diese ist wichtig
 
-\section{Kommuniation mit dem Computer} %% TODO
-	Die Kommunikation zwischen Steuerschaltung und Computer findet über RS-232 statt.
-	...
-	Für den notwendigen 12 Volt-Pegel wird der MAX232 benutzt.
-	...	
+\section{Steuerscahltung}
+
+	\subsection{Kommuniation mit dem Computer} %% TODO
+		Die Kommunikation zwischen Steuerschaltung und Computer findet über RS-232 statt.
+		...
+		Für den notwendigen 12 Volt-Pegel wird der MAX232 benutzt.
+		...	
+
+	\section{Anbindung des Gamepad} %% TODO
+		Ein Gamepad wird für die Schnistelle zum Benutzer benutzt.
+		Dafür wurde ein Programm implementiert welches die Steuerinformationen vom Gamepad
+		über den RS-232 anschluss zum Steuerkontroler weiterleitet.
 
 \section{Funkverbingung zwischen Autokontroler und Steuerkontroler} %% TODO
 
