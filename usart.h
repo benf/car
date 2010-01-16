@@ -1,3 +1,4 @@
+#include "usart_cfg.h"
 unsigned char usart_receive(void);
 
 void usart_transmit(unsigned char data);
