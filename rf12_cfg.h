@@ -1,11 +1,14 @@
 #define SOFT_SPI  0
+
 #if 1
+#define RFXX_nIRQ_DDR   DDRB
 #define RFXX_nIRQ_PORT  PORTB
 #define RFXX_nIRQ_PIN   PINB
 #define RFXX_nIRQ       PB2
 
 #else
 
+#define RFXX_nIRQ_DDR   DDRD
 #define RFXX_nIRQ_PORT  PORTD
 #define RFXX_nIRQ_PIN   PIND
 #define RFXX_nIRQ       PD2
