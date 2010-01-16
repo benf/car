@@ -25,10 +25,13 @@ void tx_cmd(uint8_t cmd, uint8_t param) {
 	 * => use it also to indacte data-packet-start
 	 */
 	putc(0xAA, stdout);
+	usleep(1);
 
 	// write data itself
 	putc(cmd, stdout);
+	usleep(1);
 	putc(param, stdout);
+	usleep(1);
 
 	// ensure the data is transmitted NOW
 	fflush(stdout);
