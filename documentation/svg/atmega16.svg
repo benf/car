@@ -66,35 +66,32 @@
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <g
-       id="g4370">
-      <a
-         id="a4367">
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:7.75641537;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect3705"
-           width="142.24359"
-           height="492.24356"
-           x="3.8781967"
-           y="556.24042" />
-      </a>
-      <path
-         d="m 231.42857,234.50504 a 19.285715,19.285715 0 1 1 -38.57143,0 19.285715,19.285715 0 1 1 38.57143,0 z"
-         sodipodi:ry="19.285715"
-         sodipodi:rx="19.285715"
-         sodipodi:cy="234.50504"
-         sodipodi:cx="212.14285"
-         id="path3660"
-         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.67699999;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-         sodipodi:type="arc"
-         transform="matrix(1.2739363,0,0,1.2739363,-195.25648,253.61771)" />
+    <a
+       id="a4367">
       <rect
-         y="526.83234"
-         x="50.470135"
-         height="25.059729"
-         width="49.059731"
-         id="rect3701"
-         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.94027227;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-    </g>
+         y="556.24042"
+         x="3.8781967"
+         height="492.24356"
+         width="142.24359"
+         id="rect3705"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:7.75641537;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </a>
+    <path
+       transform="matrix(1.2739363,0,0,1.2739363,-195.25648,253.61771)"
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:5.49478023;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3660"
+       sodipodi:cx="212.14285"
+       sodipodi:cy="234.50504"
+       sodipodi:rx="19.285715"
+       sodipodi:ry="19.285715"
+       d="m 231.42857,234.50504 a 19.285715,19.285715 0 1 1 -38.57143,0 19.285715,19.285715 0 1 1 38.57143,0 z" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1.10621572;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3701"
+       width="58.893787"
+       height="28.893784"
+       x="44.553112"
+       y="522.91528" />
   </g>
 </svg>
