@@ -588,7 +588,7 @@
          id="tspan4777-6-1"
          x="19.90625"
          y="872.1922"
-         style="font-size:12px">Vcc</tspan></text>
+         style="font-size:12px">XTAL1</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:4px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
@@ -599,7 +599,7 @@
          id="tspan4777-9-4-2"
          x="19.90625"
          y="847.19214"
-         style="font-size:12px">Vcc</tspan></text>
+         style="font-size:12px">XTAL2</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:4px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
