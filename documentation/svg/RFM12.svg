@@ -483,7 +483,9 @@
      inkscape:window-height="1005"
      inkscape:window-x="1278"
      inkscape:window-y="0"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true" />
   <metadata
      id="metadata5295">
     <rdf:RDF>
@@ -492,7 +494,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -501,256 +503,273 @@
      inkscape:groupmode="layer"
      id="layer1">
     <g
-       id="g6013">
+       id="g5973">
       <g
-         transform="translate(-2,2.8610229e-6)"
-         id="g5419">
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302"
-           width="9.1993322"
-           height="19.199331"
-           x="2.4003339"
-           y="932.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-4"
-           width="9.1993322"
-           height="19.199331"
-           x="2.4003339"
-           y="902.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-3"
-           width="9.1993322"
-           height="19.199331"
-           x="2.4003339"
-           y="872.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-4-1"
-           width="9.1993322"
-           height="19.199331"
-           x="2.4003339"
-           y="842.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-49"
-           width="9.1993322"
-           height="19.199331"
-           x="2.4003339"
-           y="1022.7625" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-4-2"
-           width="9.1993322"
-           height="19.199331"
-           x="2.4003339"
-           y="992.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-3-0"
-           width="9.1993322"
-           height="19.199331"
-           x="2.4003339"
-           y="962.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-6"
-           width="9.1993322"
-           height="19.199331"
-           x="178.40033"
-           y="932.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-4-8"
-           width="9.1993322"
-           height="19.199331"
-           x="178.40033"
-           y="902.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-3-9"
-           width="9.1993322"
-           height="19.199331"
-           x="178.40033"
-           y="872.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-4-1-2"
-           width="9.1993322"
-           height="19.199331"
-           x="178.40033"
-           y="842.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-49-6"
-           width="9.1993322"
-           height="19.199331"
-           x="178.40033"
-           y="1022.7625" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-4-2-6"
-           width="9.1993322"
-           height="19.199331"
-           x="178.40033"
-           y="992.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5302-3-0-4"
-           width="9.1993322"
-           height="19.199331"
-           x="178.40033"
-           y="962.76251" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.09996986;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect5300"
-           width="168.90002"
-           height="218.90002"
-           x="10.549985"
-           y="832.91217" />
+         id="g5924">
+        <g
+           id="g6013">
+          <g
+             transform="translate(-2,2.8610229e-6)"
+             id="g5419">
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302"
+               width="9.1993322"
+               height="19.199331"
+               x="2.4003339"
+               y="932.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-4"
+               width="9.1993322"
+               height="19.199331"
+               x="2.4003339"
+               y="902.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-3"
+               width="9.1993322"
+               height="19.199331"
+               x="2.4003339"
+               y="872.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-4-1"
+               width="9.1993322"
+               height="19.199331"
+               x="2.4003339"
+               y="842.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-49"
+               width="9.1993322"
+               height="19.199331"
+               x="2.4003339"
+               y="1022.7625" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-4-2"
+               width="9.1993322"
+               height="19.199331"
+               x="2.4003339"
+               y="992.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-3-0"
+               width="9.1993322"
+               height="19.199331"
+               x="2.4003339"
+               y="962.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-6"
+               width="9.1993322"
+               height="19.199331"
+               x="178.40033"
+               y="932.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-4-8"
+               width="9.1993322"
+               height="19.199331"
+               x="178.40033"
+               y="902.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-3-9"
+               width="9.1993322"
+               height="19.199331"
+               x="178.40033"
+               y="872.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-4-1-2"
+               width="9.1993322"
+               height="19.199331"
+               x="178.40033"
+               y="842.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-49-6"
+               width="9.1993322"
+               height="19.199331"
+               x="178.40033"
+               y="1022.7625" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-4-2-6"
+               width="9.1993322"
+               height="19.199331"
+               x="178.40033"
+               y="992.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.80066782;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5302-3-0-4"
+               width="9.1993322"
+               height="19.199331"
+               x="178.40033"
+               y="962.76251" />
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.09996986;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+               id="rect5300"
+               width="168.90002"
+               height="218.90002"
+               x="10.549985"
+               y="832.91217" />
+          </g>
+          <text
+             id="text5436"
+             y="1007.3622"
+             x="173.41797"
+             style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="1007.3622"
+               x="173.41797"
+               id="tspan5438"
+               sodipodi:role="line">VDD</tspan></text>
+          <text
+             id="text5436-9"
+             y="977.36218"
+             x="173.41797"
+             style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="977.36218"
+               x="173.41797"
+               id="tspan5438-5"
+               sodipodi:role="line">GND</tspan></text>
+          <text
+             id="text5436-0"
+             y="947.36218"
+             x="173.41797"
+             style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="947.36218"
+               x="173.41797"
+               id="tspan5438-4"
+               sodipodi:role="line">nINT</tspan></text>
+          <text
+             id="text5436-9-8"
+             y="917.36218"
+             x="173.41797"
+             style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="917.36218"
+               x="173.41797"
+               id="tspan5438-5-7"
+               sodipodi:role="line">SDI</tspan></text>
+          <text
+             id="text5436-7"
+             y="887.36218"
+             x="173.41797"
+             style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="887.36218"
+               x="173.41797"
+               id="tspan5438-2"
+               sodipodi:role="line">SCK</tspan></text>
+          <text
+             id="text5436-9-7"
+             y="857.36218"
+             x="173.41797"
+             style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="857.36218"
+               x="173.41797"
+               id="tspan5438-5-2"
+               sodipodi:role="line">nSEL</tspan></text>
+          <text
+             id="text5436-2"
+             y="1037.3622"
+             x="173.41797"
+             style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="1037.3622"
+               x="173.41797"
+               id="tspan5438-6"
+               sodipodi:role="line">ANT</tspan></text>
+          <text
+             id="text5436-1"
+             y="1007.3621"
+             x="14.90625"
+             style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="1007.3621"
+               x="14.90625"
+               id="tspan5438-0"
+               sodipodi:role="line">nRES</tspan></text>
+          <text
+             id="text5436-9-6"
+             y="977.36212"
+             x="14.90625"
+             style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="977.36212"
+               x="14.90625"
+               id="tspan5438-5-1"
+               sodipodi:role="line">CLK</tspan></text>
+          <text
+             id="text5436-0-5"
+             y="947.36212"
+             x="14.90625"
+             style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="947.36212"
+               x="14.90625"
+               id="tspan5438-4-9"
+               sodipodi:role="line">FFIT</tspan></text>
+          <text
+             id="text5436-9-8-4"
+             y="917.36212"
+             x="14.90625"
+             style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="917.36212"
+               x="14.90625"
+               id="tspan5438-5-7-9"
+               sodipodi:role="line">nFFS</tspan></text>
+          <text
+             id="text5436-7-0"
+             y="887.36212"
+             x="14.90625"
+             style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="887.36212"
+               x="14.90625"
+               id="tspan5438-2-9"
+               sodipodi:role="line">nIRQ</tspan></text>
+          <text
+             id="text5436-9-7-1"
+             y="857.36212"
+             x="14.90625"
+             style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="857.36212"
+               x="14.90625"
+               id="tspan5438-5-2-7"
+               sodipodi:role="line">SDO</tspan></text>
+          <text
+             id="text5436-2-7"
+             y="1037.3622"
+             x="14.90625"
+             style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+             xml:space="preserve"><tspan
+               y="1037.3622"
+               x="14.90625"
+               id="tspan5438-6-1"
+               sodipodi:role="line">GND</tspan></text>
+        </g>
+        <text
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+           x="58.037109"
+           y="802.36218"
+           id="text5920"><tspan
+             sodipodi:role="line"
+             id="tspan5922"
+             x="58.037109"
+             y="802.36218"
+             style="font-size:20px">RFM12</tspan></text>
       </g>
-      <text
-         id="text5436"
-         y="1007.3622"
-         x="173.41797"
-         style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="1007.3622"
-           x="173.41797"
-           id="tspan5438"
-           sodipodi:role="line">VDD</tspan></text>
-      <text
-         id="text5436-9"
-         y="977.36218"
-         x="173.41797"
-         style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="977.36218"
-           x="173.41797"
-           id="tspan5438-5"
-           sodipodi:role="line">GND</tspan></text>
-      <text
-         id="text5436-0"
-         y="947.36218"
-         x="173.41797"
-         style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="947.36218"
-           x="173.41797"
-           id="tspan5438-4"
-           sodipodi:role="line">nINT</tspan></text>
-      <text
-         id="text5436-9-8"
-         y="917.36218"
-         x="173.41797"
-         style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="917.36218"
-           x="173.41797"
-           id="tspan5438-5-7"
-           sodipodi:role="line">SDI</tspan></text>
-      <text
-         id="text5436-7"
-         y="887.36218"
-         x="173.41797"
-         style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="887.36218"
-           x="173.41797"
-           id="tspan5438-2"
-           sodipodi:role="line">SCK</tspan></text>
-      <text
-         id="text5436-9-7"
-         y="857.36218"
-         x="173.41797"
-         style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="857.36218"
-           x="173.41797"
-           id="tspan5438-5-2"
-           sodipodi:role="line">nSEL</tspan></text>
-      <text
-         id="text5436-2"
-         y="1037.3622"
-         x="173.41797"
-         style="font-size:12px;font-style:normal;font-weight:normal;text-align:end;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="1037.3622"
-           x="173.41797"
-           id="tspan5438-6"
-           sodipodi:role="line">VDD</tspan></text>
-      <text
-         id="text5436-1"
-         y="1007.3621"
-         x="14.90625"
-         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="1007.3621"
-           x="14.90625"
-           id="tspan5438-0"
-           sodipodi:role="line">nRES</tspan></text>
-      <text
-         id="text5436-9-6"
-         y="977.36212"
-         x="14.90625"
-         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="977.36212"
-           x="14.90625"
-           id="tspan5438-5-1"
-           sodipodi:role="line">CLK</tspan></text>
-      <text
-         id="text5436-0-5"
-         y="947.36212"
-         x="14.90625"
-         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="947.36212"
-           x="14.90625"
-           id="tspan5438-4-9"
-           sodipodi:role="line">FFIT</tspan></text>
-      <text
-         id="text5436-9-8-4"
-         y="917.36212"
-         x="14.90625"
-         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="917.36212"
-           x="14.90625"
-           id="tspan5438-5-7-9"
-           sodipodi:role="line">nFFS</tspan></text>
-      <text
-         id="text5436-7-0"
-         y="887.36212"
-         x="14.90625"
-         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="887.36212"
-           x="14.90625"
-           id="tspan5438-2-9"
-           sodipodi:role="line">nIRQ</tspan></text>
-      <text
-         id="text5436-9-7-1"
-         y="857.36212"
-         x="14.90625"
-         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="857.36212"
-           x="14.90625"
-           id="tspan5438-5-2-7"
-           sodipodi:role="line">SDO</tspan></text>
-      <text
-         id="text5436-2-7"
-         y="1037.3622"
-         x="14.90625"
-         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="1037.3622"
-           x="14.90625"
-           id="tspan5438-6-1"
-           sodipodi:role="line">GND</tspan></text>
     </g>
   </g>
 </svg>

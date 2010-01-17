@@ -14,7 +14,7 @@
    id="svg7108"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="New document 32">
+   sodipodi:docname="L7805.svg">
   <defs
      id="defs7110">
     <inkscape:perspective
@@ -79,7 +79,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -88,69 +88,82 @@
      inkscape:groupmode="layer"
      id="layer1">
     <g
-       id="g7709"
-       transform="translate(-2,2.0000572)">
+       id="g6023">
       <g
-         id="g7663">
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.23082733;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect7120"
-           width="8.7691727"
-           height="18.769173"
-           x="2.6154137"
-           y="1012.9776" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.23082733;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect7120-9"
-           width="18.769173"
-           height="8.7691727"
-           x="50.615414"
-           y="1040.9775" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.23082733;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect7120-7"
-           width="8.7691727"
-           height="18.769173"
-           x="108.61542"
-           y="1012.9776" />
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.88312787;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-           id="rect7118"
-           width="99.116875"
-           height="39.116871"
-           x="10.441564"
-           y="1002.8038" />
+         transform="translate(-2,2.0000572)"
+         id="g7709">
+        <g
+           id="g7663">
+          <rect
+             y="1012.9776"
+             x="2.6154137"
+             height="18.769173"
+             width="8.7691727"
+             id="rect7120"
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.23082733;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+          <rect
+             y="1040.9775"
+             x="50.615414"
+             height="8.7691727"
+             width="18.769173"
+             id="rect7120-9"
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.23082733;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+          <rect
+             y="1012.9776"
+             x="108.61542"
+             height="18.769173"
+             width="8.7691727"
+             id="rect7120-7"
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.23082733;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+          <rect
+             y="1002.8038"
+             x="10.441564"
+             height="39.116871"
+             width="99.116875"
+             id="rect7118"
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.88312787;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+        </g>
+        <text
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+           x="46.326172"
+           y="1037.1923"
+           id="text7669"><tspan
+             sodipodi:role="line"
+             id="tspan7671"
+             x="46.326172"
+             y="1037.1923">GND</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+           x="81.326172"
+           y="1027.1923"
+           id="text7669-6"><tspan
+             sodipodi:role="line"
+             id="tspan7671-7"
+             x="81.326172"
+             y="1027.1923">OUT</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+           x="14.326172"
+           y="1027.1923"
+           id="text7669-65"><tspan
+             sodipodi:role="line"
+             id="tspan7671-6"
+             x="14.326172"
+             y="1027.1923">IN</tspan></text>
       </g>
       <text
-         id="text7669"
-         y="1037.1923"
-         x="46.326172"
-         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
+         id="text5122"
+         y="992.07898"
+         x="28.037109"
+         style="font-size:20px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
          xml:space="preserve"><tspan
-           y="1037.1923"
-           x="46.326172"
-           id="tspan7671"
-           sodipodi:role="line">GND</tspan></text>
-      <text
-         id="text7669-6"
-         y="1027.1923"
-         x="81.326172"
-         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="1027.1923"
-           x="81.326172"
-           id="tspan7671-7"
-           sodipodi:role="line">OUT</tspan></text>
-      <text
-         id="text7669-65"
-         y="1027.1923"
-         x="14.326172"
-         style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Bitstream Vera Sans"
-         xml:space="preserve"><tspan
-           y="1027.1923"
-           x="14.326172"
-           id="tspan7671-6"
-           sodipodi:role="line">IN</tspan></text>
+           y="992.07898"
+           x="28.037109"
+           id="tspan5124"
+           sodipodi:role="line">L7805</tspan></text>
     </g>
   </g>
 </svg>
