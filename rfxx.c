@@ -1,23 +1,36 @@
 #include <avr/io.h>
 
+//! \file rf12_cfg.h
 #include "rf12_cfg.h"
+//! \file rfxx.h
 #include "rfxx.h"
 
-void _delay_ms(double ms);
 
+/** 
+ * \brief Kommando ans Funkmodul senden und empfangen
+ *
+ * Diese Funktion sendet \a cmd an ein RFxx Funkmodul
+ * unter Nutzung der SPI-Kommando Schnittstelle der Module.
+ *
+ * Die Übertragung verläuft full-duplex sodass,
+ * senden und empfagen gleichzeitig stattfindet.
+ *
+ * \param	cmd		Befehl fürs Funkmodul
+ * \return			Antwort des Moduls auf den Befehl (z.b. FIFO read)
+ */
 
-uint16_t rfxx_wrt_cmd(uint16_t aCmd){
+uint16_t rfxx_wrt_cmd(uint16_t cmd){
 	uint16_t response = 0;
-
 	// chip select (SS low active)
 	PORT_SPI &= ~(1 << SPI_SS);
+
 #if SOFT_SPI
 	uint8_t  i;
 
 	PORT_SPI &= ~(1 << SPI_SCK);
 	
 	for (i = 0; i < 16; ++i) {
-		if (aCmd & (1 << 15))
+		if (cmd & (1 << 15))
 			PORT_SPI |=  (1 << SPI_MOSI);
 		else
 			PORT_SPI &= ~(1 << SPI_MOSI);
@@ -29,13 +42,13 @@ uint16_t rfxx_wrt_cmd(uint16_t aCmd){
 			response |= 0x0001;
 
 		PORT_SPI &= ~(1 << SPI_SCK);
-		aCmd <<= 1;
+		cmd <<= 1;
 	}
 	PORT_SPI |= (1 << SPI_SS);
 #else
 	// split 16bit to 2 x 8bit (
-	uint8_t hi  = (aCmd >> 8) & 0xff;
-	uint8_t low = aCmd & 0xff;
+	uint8_t hi  = (cmd >> 8) & 0xff;
+	uint8_t low = cmd & 0xff;
 
 
 	// send cmd's hi-byte first (write MOSI)
@@ -57,11 +70,18 @@ uint16_t rfxx_wrt_cmd(uint16_t aCmd){
 	return response;
 }
 
+/**
+ * \brief ein Byte per Funk senden
+ */
+
 void rf12_send(uint8_t data) {
 	while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ)); // wait for previous TX
 	rfxx_wrt_cmd(0xb800 | data);
 }
 
+/**
+ * \brief Initialisierung der SPI Schnittstelle zur Kommunikation mit den Funkmodulen
+ */
 void rfxx_init(void) {
 	//_delay_ms(200);
 
@@ -84,6 +104,9 @@ void rfxx_init(void) {
 
 }
 
+/**
+ * \brief ein byte Daten lesen
+ */
 
 uint8_t rf12_recv(void) {
 
@@ -95,6 +118,9 @@ uint8_t rf12_recv(void) {
 	
 	return (uint8_t) 0x00ff & data;
 }
+/**
+ * \brief Lese \a num emfpangene Bytes vom Funkmodul
+ */
 void rf12_recv_data(uint8_t *data, uint8_t num) {
 	uint8_t i;
 	rfxx_wrt_cmd(0xCA81);
@@ -104,6 +130,9 @@ void rf12_recv_data(uint8_t *data, uint8_t num) {
 		*data++ = rf12_recv();
 }
 
+/**
+ * \brief Sende \a num Bytes per Funk
+ */
 void rf12_send_data(uint8_t *data, uint8_t num) {
 	uint8_t i;
 	
@@ -130,7 +159,9 @@ void rf12_send_data(uint8_t *data, uint8_t num) {
 	rfxx_wrt_cmd(0x8201);
 }
 
-
+/**
+ * \brief Initialisierung des Funkmoduls
+ */
 void rf12_init(uint8_t transfer) {
 	rfxx_wrt_cmd(0x80D8);//EL,EF,433band,12.5pF
 
@@ -144,13 +175,14 @@ void rf12_init(uint8_t transfer) {
 	rfxx_wrt_cmd(0xCA81);//FIFO8,SYNC,!ff,DR{
 	rfxx_wrt_cmd(0x80D8);//EL,EF,433band,12.5pF
 	rfxx_wrt_cmd(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
-	rfxx_wrt_cmd(0x9850);//!mp,9810=30kHz,MAX OUT
+	rfxx_wrt_cmd(0x9850);// !mp,9810=30kHz,MAX OUT
 	rfxx_wrt_cmd(0xE000);//NOT USE
 	rfxx_wrt_cmd(0xC800);//NOT USE
 	rfxx_wrt_cmd(0xC400);//1.66MHz,2.2V
 
 }
 
+#if 0
 uint8_t RF01_RDFIFO(void) {
 	uint8_t data;
 	uint8_t i;
@@ -258,5 +290,5 @@ void rf02_init(void) {
 
 	PORTB = (1 << RFXX_FSK);
 }
-
+#endif
 /* vim: set sts=0 fenc=utf-8: */
