@@ -28,7 +28,7 @@ volatile uint8_t queue = 0;
  * the RS-232 interface also uses
  */
 ISR (USART_RXC_vect) {
-	cli();
+	cli(); // disable interrupts
 	++id;
 	tmp = UDR;
 
@@ -45,7 +45,7 @@ ISR (USART_RXC_vect) {
 		PORTC ^= (1 << PC0);
 	}
 	PORTC ^= (1 << PC1);
-	sei();
+	sei();// enable interrupts
 }
 
 int main(void) {
