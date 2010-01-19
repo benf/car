@@ -4,6 +4,7 @@
 #include "usart.h"
 
 unsigned char usart_receive(void) {
+	// TODO: No Error Checks are here
 	while ((UCSRA & (1 << RXC)) == 0);
 	return UDR;
 }
