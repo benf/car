@@ -24,6 +24,7 @@ volatile uint8_t id = 0;
 volatile uint8_t action;
 volatile uint8_t param;
 
+// define alia
 #define DDR_ENGINE    DDRD
 #define PORT_ENGINE   PORTD
 #define ENGINE_LEFT   PD0
@@ -143,11 +144,11 @@ int main(void)
 	//not used
 	/////MCUCR = (1 << ISC01) | (1 << ISC00);
 
-	// 
+	// set the engin and speed control pins to output pins
 	DDR_ENGINE |= (1 << ENGINE_LEFT) | (1 << ENGINE_RIGHT) | (1 << ENGINE_ENABLE);
 	PORT_ENGINE &= ~(1 << ENGINE_ENABLE);
 
-	// 
+	// set steering control pins to output pin
 	DDR_DIRECTION |= (1 << DIR_LEFT) | (1 << DIR_RIGHT) | (1 << DIR_EN);
 	DIRECTION &= ~(1 << DIR_EN);
 
