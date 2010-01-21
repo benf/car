@@ -5,7 +5,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
- 
+\usepackage{listings}
+
 \title{Projekt Dokumentation}
 \author{Benjamin Franzke, Jan Klemkow und Maik Rungberg}
 \date{03. Januar 2010}
@@ -14,6 +15,8 @@
 
 \maketitle
 \tableofcontents
+
+\newpage
 
 \section{Einleitung} %% TODO
 	Diese Projekt-Dokumentation beschreibt die Komplette Durchführung des Mikroprozessortechnik-Projektes,
@@ -32,6 +35,8 @@
 	sowie das Gehäuse und der Akkumolator übernommen.
 	An die Kabel der der Motoren wurden Verlängerungen gelöttet,
 	welche sich einfacher auf dem Steckbrettern befestigen lassen.
+
+\newpage
 
 \section{Fahrzeugschaltung} %% TODO
 	Die Fahrzeugschaltung besteht im Zentralen aus dem ATMEGA16 und eine Funkemfänger.
@@ -53,6 +58,8 @@
 	
 	\subsection{Programmierung} %% TODO: Erläuterung der Programmierung der Fahrzeugschaltung
 		In diesem Abschnitt wird der Programmcode des Steuerkontrolers erklärt.
+
+\newpage
 
 \section{Steuerschaltung}
 
@@ -77,9 +84,11 @@
 
 \section{Funkverbindung zwischen Autokontroler und Steuerkontroler} %% TODO
 
+\newpage
+
 \section{Quelltext} %% TODO
 	In diesem Kapitel werden die Einzelnen Quelltexte zu dem Projekt erläutert.
 
-\end{document}
+\include{sender.c}
 
 %% vim: set sts=0 fenc=utf-8: 
