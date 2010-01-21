@@ -7,7 +7,6 @@
 #include <util/delay.h>
 #include <util/crc16.h>
 
-#include "ad.h"
 #include "rf12_cfg.h"
 #include "rfxx.h"
 
@@ -24,7 +23,8 @@ volatile uint8_t id = 0;
 volatile uint8_t action;
 volatile uint8_t param;
 
-// define alia
+volatile uint8_t hinderniss;
+
 #define DDR_ENGINE    DDRD
 #define PORT_ENGINE   PORTD
 #define ENGINE_LEFT   PD0
@@ -36,6 +36,89 @@ volatile uint8_t param;
 #define DIR_LEFT      PA0
 #define DIR_RIGHT     PA1
 #define DIR_EN        PA2
+
+
+void init_special()
+{
+
+//  TCCR0 |= (1 << CS00 ) | ( 1 << CS02 );
+	TCCR0 |= (1 << CS02);
+	TIMSK |= (1 << TOIE0 );
+  
+	sei();
+
+}
+uint16_t ReadADC(uint8_t channel)
+{
+  uint8_t i;
+  uint16_t result;
+ 
+  ADMUX = channel;                      
+  ADMUX |= (1<<REFS1) | (1<<REFS0); // Vref = 2.56V
+  ADCSRA = (1<<ADEN) | (1<<ADPS2) | (1<<ADPS0);    // Frequenzteiler 32
+  ADCSRA |= (1<<ADSC);
+  while ( ADCSRA & (1<<ADSC) ) {}
+  result = ADCW;  
+  result = 0; 
+  //Eigentliche Messung beginnt jetzt
+  for ( i=0; i<4; ++i )
+  {
+    ADCSRA |= (1<<ADSC);            // single conversion
+    while ( ADCSRA & (1<<ADSC) ) {}
+    result += ADCW;	
+  }
+  ADCSRA &= ~(1<<ADEN);
+ 
+  result /= 4; //Mittelwert und zurück
+  return result;
+}
+
+
+ISR (TIMER0_OVF_vect)
+{
+  //Overflow
+  //ADC LESEN
+  uint16_t adcvalue;
+  uint8_t  erg;
+
+  adcvalue = ReadADC(3); //Kanal 3 lesen, SHARP Sensor
+  erg = adcvalue/4;  //Durch 4 teilen => Spannung als 8-Bit Wert mal 100 (ohne Komma von 0-255)
+  /*   	
+		IR-Sensor
+		---------
+
+		adcwert * (Uref/1024) = Vout 
+		Abstand (cm) y = 22/(Vout-0.13)
+		Bremsen bei y < 50cm
+
+		LDR
+		---
+		
+		Hell	-	1K Ohm
+		Dunkel	-	500K Ohm
+  
+  */
+  if(erg >= 50)  //ca. 30cm
+  {
+	  hinderniss = 1;
+    PORTC |=  (1 << PC3);
+  }else
+  {
+	  hinderniss = 0;
+    PORTC &= ~(1 << PC3);
+  }
+      
+  adcvalue = ReadADC(4); //Kanal 4 lesen, LDR
+  erg = adcvalue/4; 
+  if(erg >= 130)
+  {
+    PORTC |= (1 << PC1);
+  }else
+  {
+    PORTC &= ~(1 << PC1);
+  }
+}
+
 
 void cmd(uint8_t _action, int8_t _param) {
 	if (_action == 'S') {
@@ -136,6 +219,8 @@ int main(void)
 	rfxx_init();
 	rf12_init(0);
 
+//	init_special();
+
 
 	// enable external interrupt 1
 	//// MCUCSR &= ~(1 << ISC2);
@@ -144,11 +229,11 @@ int main(void)
 	//not used
 	/////MCUCR = (1 << ISC01) | (1 << ISC00);
 
-	// set the engin and speed control pins to output pins
+	// 
 	DDR_ENGINE |= (1 << ENGINE_LEFT) | (1 << ENGINE_RIGHT) | (1 << ENGINE_ENABLE);
 	PORT_ENGINE &= ~(1 << ENGINE_ENABLE);
 
-	// set steering control pins to output pin
+	// 
 	DDR_DIRECTION |= (1 << DIR_LEFT) | (1 << DIR_RIGHT) | (1 << DIR_EN);
 	DIRECTION &= ~(1 << DIR_EN);
 
@@ -177,6 +262,7 @@ int main(void)
 
 	PORTC &=  ~(1 << PC1);
 
+//	cmd('S',0x81);
 #if 1
 	while (1) {
 		while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ));
