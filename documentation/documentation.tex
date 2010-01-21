@@ -60,7 +60,13 @@
 		Die Kommunikation zwischen Steuerschaltung und Computer findet über RS-232 statt.
 		...
 		Für den notwendigen 12 Volt-Pegel wird der MAX232 benutzt.
-		...	
+		Das folgende Schaltbild zeigt die Beschaltung des MAX-232 mit Mikrokontroler und der RS-232-Schnittstelle des Computers.
+		%% TODO: Bild einfügen von MAX232-µC-PC
+
+		Für die Kommunikation wird eine externer Quatz benötigt, da der intere Quatz zu ungenau und zu fehleranfällig ist.
+		Bei einem Versuch mit dem internen Quatz konnte eine kommunikation mit 600 Baud realisiert werden.
+		Diese funktionierte allerdings an einem anderen Standort nicht mehr. Diese Phänomen kann auf die fehler anfälligkeit,
+		z.b. bei Temperaturveränderungen zurückgeführt werden.
 
 	\subsection{Anbindung des Gamepad} %% TODO
 		Ein Gamepad wird für die Schnittstelle zum Benutzer verwendet.
@@ -69,10 +75,10 @@
 	
 	\subsection{Programmierung} %% TODO: Erläuterung der Programmierung der Steuerschaltung
 
-\section{Funkverbingung zwischen Autokontroler und Steuerkontroler} %% TODO
+\section{Funkverbindung zwischen Autokontroler und Steuerkontroler} %% TODO
 
 \section{Quelltext} %% TODO
-	In diesem Kapitel werden die Einzelnen Quelltexte zu dem Projekt erläuert.
+	In diesem Kapitel werden die Einzelnen Quelltexte zu dem Projekt erläutert.
 
 \end{document}
 
