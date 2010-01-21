@@ -12,12 +12,11 @@
 #include "rf12_cfg.h"
 #include "rfxx.h"
 
-uint8_t buffer[4];
+uint8_t buffer[20];
 
-volatile uint8_t id = 0;
-volatile uint8_t tmp;
+/*volatile*/ uint8_t id = 0;
+/*volatile*/ uint8_t tmp;
 
-volatile uint8_t queue = 0;
 
 /* Serial Data Input Reception Interrupt (RX/USART)
  *
@@ -30,22 +29,24 @@ volatile uint8_t queue = 0;
 ISR (USART_RXC_vect) {
 	cli(); // disable interrupts
 	++id;
+
 	tmp = UDR;
 
 	if (tmp == 0xAA)
 		id = 0;
-	else {
+	else 
 		buffer[id] = tmp;
-	}
 
 	if (id == 2) {
 		buffer[3] = _crc_ibutton_update(_crc_ibutton_update(0, buffer[1]), buffer[2]);
+		PORTC |= (1 << PC6);
 		rf12_send_data(buffer + 1, 3);
+	PORTC &= ~(1 << PC6);
 
 		PORTC ^= (1 << PC0);
 	}
 	PORTC ^= (1 << PC1);
-	sei();// enable interrupts
+	sei(); // enable interrupts
 }
 
 int main(void) {
@@ -62,9 +63,18 @@ int main(void) {
 	// 1 = transfer mode, 0 = receive mode
 	rf12_init(1);
 
-	DDRD &= ~(1 << RFXX_nIRQ);
+	RFXX_nIRQ_DDR &= ~(1 << RFXX_nIRQ);
 
 	while(1);
+
+	{
+		PORTC ^= (1 << PC6);
+
+//		uint8_t i;
+//		for (i = 0; i < 10; ++i)
+			_delay_ms(10);
+
+	}
 
 	return 0;
 }
