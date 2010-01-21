@@ -24,7 +24,7 @@ volatile uint8_t action;
 volatile uint8_t param;
 
 volatile uint8_t hinderniss;
-
+volatile uint8_t rwd;
 #define DDR_ENGINE    DDRD
 #define PORT_ENGINE   PORTD
 #define ENGINE_LEFT   PD0
@@ -40,6 +40,7 @@ volatile uint8_t hinderniss;
 
 void init_special()
 {
+	DDRA &= ~((1 << PA3) & (1 << PA4));
 
 //  TCCR0 |= (1 << CS00 ) | ( 1 << CS02 );
 	TCCR0 |= (1 << CS02);
@@ -76,6 +77,7 @@ uint16_t ReadADC(uint8_t channel)
 
 ISR (TIMER0_OVF_vect)
 {
+	cli();
   //Overflow
   //ADC LESEN
   uint16_t adcvalue;
@@ -98,10 +100,12 @@ ISR (TIMER0_OVF_vect)
 		Dunkel	-	500K Ohm
   
   */
-  if(erg >= 50)  //ca. 30cm
+  if((erg >= 50))  //ca. 30cm
   {
 	  hinderniss = 1;
     PORTC |=  (1 << PC3);
+	if (!rwd)
+		cmd('S', 0);
   }else
   {
 	  hinderniss = 0;
@@ -110,13 +114,15 @@ ISR (TIMER0_OVF_vect)
       
   adcvalue = ReadADC(4); //Kanal 4 lesen, LDR
   erg = adcvalue/4; 
-  if(erg >= 130)
+  if((erg >= 130))
   {
-    PORTC |= (1 << PC1);
+    PORTC |= (1 << PC0);
   }else
   {
-    PORTC &= ~(1 << PC1);
+    PORTC &= ~(1 << PC0);
   }
+  PORTC ^= (1 << PC1);
+  sei();
 }
 
 
@@ -129,12 +135,14 @@ void cmd(uint8_t _action, int8_t _param) {
 			PORT_ENGINE &= ~(1 << ENGINE_RIGHT);
 			PORT_ENGINE &= ~(1 << ENGINE_LEFT);
 		}	else if (_param > 0) {
+			rwd = 1;
 
 			OCR1A = ((uint16_t) _param) << 3;
 
 			PORT_ENGINE &= ~(1 << ENGINE_RIGHT);
 			PORT_ENGINE |=  (1 << ENGINE_LEFT);
-		} else if (_param < 0) {
+		} else if (_param < 0 & !hinderniss) {
+			rwd = 0;
 			OCR1A = ((uint16_t) (- _param)) << 3;
 
 			PORT_ENGINE &= ~(1 << ENGINE_LEFT);
@@ -210,6 +218,8 @@ int main(void)
 	 *       disadvantage: IRQ will lengthen (IRQ on INT0) 
 	 */
 	DDRC = 0xff;
+//	DDRC  |= (1 << PC0);
+//	PORTC |= (1 << PC0);
 
 	DDRC  |=  (1 << DDC1);
 	PORTC |=  (1 << PC1);
@@ -219,7 +229,9 @@ int main(void)
 	rfxx_init();
 	rf12_init(0);
 
-//	init_special();
+	// things just needed for debugging
+	//DDRA = 0xff;
+	init_special();
 
 
 	// enable external interrupt 1
@@ -248,8 +260,6 @@ int main(void)
 	TCCR1A  =  (1 << COM1A1) | (1 << WGM12) | (1 << WGM11) | (1 << WGM10);
 	TCCR1B  =  (1 << CS10);
 
-	// things just needed for debugging
-	DDRA = 0xff;
 
 	LED_OUTPUT();
 	DDRC = 0xff;
@@ -271,14 +281,14 @@ int main(void)
 
 		uint8_t data = rf12_recv();
 
-		PORTC &= ~(1 << PC3);
+//		PORTC &= ~(1 << PC3);
 		PORTC &= ~(1 << PC4);
 
 		switch (id) {
 			case 0:
 				action = data;
 				id = 1;
-				PORTC |= (1 << PC3);
+//				PORTC |= (1 << PC3);
 				break;
 
 			case 1: // parameter for command

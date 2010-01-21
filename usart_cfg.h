@@ -5,7 +5,7 @@
 #define F_CPU 14745600UL
 
 //#define BAUD 9600UL
-#define BAUD 4800UL
+#define BAUD 2400UL
 #include <util/setbaud.h>
 
 

@@ -29,9 +29,9 @@ void tx_cmd(uint8_t cmd, uint8_t param) {
 
 	// write data itself
 	putc(cmd, stdout);
-	usleep(5);
+	usleep(3);
 	putc(param, stdout);
-	usleep(5);
+	usleep(3);
 
 	// ensure the data is transmitted NOW
 	fflush(stdout);
