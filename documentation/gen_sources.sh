@@ -4,5 +4,6 @@ do
 	name=$(basename $file)
 	echo '\lstset{language=C}' > $name.tex
 	cat $file >> $name.tex
+	sed -i 's/[#&]/\\\0/g' $name.tex
 	echo '\end{lstlisting}' >> $name.tex
 done
