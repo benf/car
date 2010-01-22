@@ -5,7 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
-\usepackage{listings}
+%%\usepackage{listings}
 \usepackage{eurosym}
 
 \title{Projekt Dokumentation}
@@ -20,7 +20,7 @@
 \newpage
 
 \section{Einleitung} %% TODO
-	Diese Projekt-Dokumentation beschreibt die komplette Durchführung des Mikroprozessortechnik-Projektes,
+	Diese Projekt-Dokumentation beschreibt die komplette Durchfürung des Mikroprozessortechnik-Projektes,
 	den Aufbau der einzelnen Schaltungen und einige technische Erläuterungen.
 
 	In den folgenden Kapiteln werden die zwei Schaltungen und zusätzliche Entwicklungen und Umbauten erläutert.
@@ -80,7 +80,8 @@
 		Daraus folgt, dass die eingestellte Zahl den Spannungswert repräsentiert.
 
 		Am Motortreiber wird das PWM-Signal am enable Eingang angelegt, da so nur ein Timer für den Motor anfällt.
-		In welche Richtung sich der Motor drehen soll, wird dann an den IN[1..4] Eingängen eingestellt.
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
+		In welche Richtung sich der Motor drehen soll, wird dann an den IN 1..4 Eingängen eingestellt.
 		
 	
 	\subsection{Sensoren}
@@ -92,8 +93,8 @@
 			zu welchem Zeitpunkt es die Beleuchtung einschaltet.
 		\subsubsection{Abstandssensor} %% TODO: maik!
 			Der Abstandssensor soll verhindern, dass das Fahrzeug frontal gegen ein Hindernis fährt.
-			...
-			Der verwendete Sensor kann ein Objekt in einer Distanz von 10cm bis 80cm registrieren
+			...%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+			Der verwendete Sensor kann ein Objekt in einer Distanz von 10  bis 80  registrieren
 			und dessen Entfernung als Spannungspegel wieder geben. Dieser Spannungswert wird vom
 			interen Analog-Digital-Wandler in einen digitalen Wert umgewandelt und kann dann vom
 			Programm der Fahrzeugschaltung ausgewertet werden.
@@ -140,7 +141,7 @@
 		Als Funkmodul würde der RFM12 der Firma HOPE RF gewählt.
 		Dieses Modul beinhaltet den eigentlichen Funkchip RF12 und die nötige Grundbeschaltung für die Nutzung.
 
-		Die Gründe für die Wahl dieses Moduls liegen im günstigen Preis von \EUR{5} pro Stück.
+		Die Gründe für die Wahl dieses Moduls liegen im günstigen Preis von%% \EUR{5} pro Stück.
 		Weiterhin bietet jedes der Module die Möglichkeit zu Senden und zu Empfangen.
 		Dieses Feature wird zwar momentan nicht benutzt, aber bei weiterentwicklungen wenn man Sensordaten
 		an den PC zurück schicken möchte, wird es sicher nützlich sein.
@@ -153,6 +154,8 @@
 \section{Quelltext} %% TODO
 	In diesem Kapitel werden die einzelnen Quelltexte, der für dieses Projekt entwickelten Programme, aufgelistet.
 
-\include{sender.c}
+%%\include{sender.c}
+
+\end{document}
 
 %% vim: set spelllang=de sts=0 fenc=utf-8: 
