@@ -42,10 +42,10 @@
 \newpage
 
 \section{Fahrzeugschaltung} %% TODO
-	Die Fahrzeugschaltung besteht im Wesentlichen aus einem Mikrocontroller "ATMEGA 16" und einem Funkemfänger "RFM12".
+	Die Fahrzeugschaltung besteht im Wesentlichen aus einem Mikrocontroller 'ATMEGA~16' und einem Funkemfänger 'RFM12'.
 	Versorgt wird die gesamte Schaltung über die im Fahrzeug integrierte Versorungsspannung,
 	welche aus einem 10 Volt Akkumulator besteht.
-	Da der "ATMEGA 16" eine Spannungsversorgung von 5 Volt benötigt, ist der Festspannungsregler "L7805"
+	Da der ATMEGA 16 eine Spannungsversorgung von 5 Volt benötigt, ist der Festspannungsregler 'L7805'
 	zwischen Akkumulator und Mikrocontroller geschaltet.
 
 	\subsection{Motoransteuerung}
@@ -220,10 +220,10 @@
 		Sodass der Microcontroller das auslesen aus dem Funkmodul beginnt.
 
 	\subsection{Probleme}
-		Während der Entwicklung gab es immer wieder Probleme mit undokumentierten Eigentschaften,
+		Während der Entwicklung gab es immer wieder Probleme mit undokumentierten Eigenschaften,
 		z.b. dass der Chip beim Starten (vom Hersteller auch POR Power-On Reset genannt)
 		eine Zeit zum initialisieren brauch, diese Eigenschaften mussten aus dem Beispielcode 
-		entnommen werden.
+		geschlussfolgert werden.
 		
 		Weiterhin ist das SPI-Interface teilweise verbuggt, sodass Befehle redundant verschickt 
 		werden mussten.
