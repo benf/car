@@ -165,29 +165,27 @@ void cmd(uint8_t _action, int8_t _param) {
 }
 
 /*! TODO: interupt: Wofür die dieser interupt?  */
-#if 0
 ISR (INT2_vect) {
 
-	//cli();
+	cli();
 	PORTC ^= (1 << PC2);
 
 	uint8_t data = rf12_recv();
 
-	PORTC &= ~(1 << PC3);
 	PORTC &= ~(1 << PC4);
 
 	switch (id) {
 		case 0:
 			action = data;
 			id = 1;
-			PORTC |= (1 << PC3);
 			break;
 		// parameter for command
 		case 1:
 			param = data;
-			//break;
-		//case 2: // checksum
-			//if (data == _crc_ibutton_update(_crc_ibutton_update(0, action), param))
+			id = 2;
+			break;
+		case 2: // checksum
+			if (data == _crc_ibutton_update(_crc_ibutton_update(0, action), param))
 				cmd(action,param);
 			id = 0;
 			rfxx_wrt_cmd(0xCA81); // reset fifo
@@ -196,9 +194,8 @@ ISR (INT2_vect) {
 
 			break;
 	}
-	//sei();
+	sei();
 }
-#endif
 
 int main(void)
 {
@@ -268,41 +265,7 @@ int main(void)
 
 	PORTC &=  ~(1 << PC1);
 
-//	cmd('S',0x81);
-#if 1
-	while (1) {
-		while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ));
-
-		PORTC ^= (1 << PC2);
-
-		uint8_t data = rf12_recv();
-
-//		PORTC &= ~(1 << PC3);
-		PORTC &= ~(1 << PC4);
-
-		switch (id) {
-			case 0:
-				action = data;
-				id = 1;
-//				PORTC |= (1 << PC3);
-				break;
-
-			case 1: // parameter for command
-				param = data;
-				id = 2;
-				break;
-
-			case 2:	// checksum
-				if (data == _crc_ibutton_update(_crc_ibutton_update(0, action), param))
-					cmd(action,param);
-				id = 0;
-				rfxx_wrt_cmd(0xCA81); // reset fifo
-				rfxx_wrt_cmd(0xCA83); //  - || -
-				PORTC |= (1 << PC4);
-				break;
-		}
-	}
-#endif
+	while (1);
 }
 
 /* vim: set sts=0 fenc=utf-8: */
