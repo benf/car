@@ -20,3 +20,4 @@ void init_control();
 void control_cmd(uint8_t _action, int8_t _param);
 
 #endif /* _CONTROL_H_ */
+/* vim: set sts=0 fenc=utf-8: */

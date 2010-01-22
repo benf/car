@@ -12,3 +12,5 @@
 // FUSE-FLAGS for external quarz
 // -U lfuse:w:0xee:m -U hfuse:w:0x99:m 
 #endif // _USART_CFG_H_
+
+/* vim: set sts=0 fenc=utf-8: */

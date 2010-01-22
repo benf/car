@@ -63,3 +63,4 @@ void control_cmd (uint8_t _action, int8_t _param) {
 
 }
 
+/* vim: set sts=0 fenc=utf-8: */

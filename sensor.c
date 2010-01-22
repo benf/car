@@ -82,3 +82,4 @@ void sensor_irq() {
 	}
 	PORTC ^= (1 << PC1);
 }
+/* vim: set sts=0 fenc=utf-8: */

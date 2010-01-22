@@ -9,3 +9,4 @@ uint16_t read_adc(uint8_t channel);
 void sensor_irq();
 
 #endif
+/* vim: set sts=0 fenc=utf-8: */
