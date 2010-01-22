@@ -1,3 +1,4 @@
+// \author Benjamin Franzke
 #include <avr/io.h>
 
 //! \file rf12_cfg.h

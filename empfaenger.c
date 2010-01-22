@@ -1,3 +1,4 @@
+// \author Benjamin Franzke
 //#define F_CPU 16000000UL
 #define F_CPU  1000000UL
 

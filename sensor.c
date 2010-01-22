@@ -1,3 +1,5 @@
+// \author Maik Rungberg
+
 #include <avr/io.h>
 #include "sensor.h"
 

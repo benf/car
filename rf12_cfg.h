@@ -1,3 +1,4 @@
+// \author Benjamin Franzke
 #define SOFT_SPI  0
 
 #if 1

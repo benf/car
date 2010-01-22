@@ -1,3 +1,4 @@
+// \author Benjamin Franzke
 #ifndef _RFXX_H_
 #define _RFXX_H_
 

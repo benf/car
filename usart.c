@@ -1,3 +1,5 @@
+// \author Jan Klemkow
+// \author Maik Rungberg
 #include <avr/io.h>
 
 #include "usart_cfg.h"

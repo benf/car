@@ -1,3 +1,4 @@
+// \author Jan Klemkow
 #include "usart_cfg.h"
 #include "usart.h"
 
