@@ -29,7 +29,7 @@ volatile uint8_t rwd;
 #define DIR_RIGHT     PA1
 #define DIR_EN        PA2
 
-
+#if 0
 void init_special() {
 	DDRA &= ~((1 << PA3) & (1 << PA4));
 
@@ -65,11 +65,13 @@ uint16_t ReadADC(uint8_t channel)
 	result /= 4; //Mittelwert und zurück
 	return result;
 }
-
+#endif
 
 ISR (TIMER0_OVF_vect)
 {
 	cli();
+	sensor_irq();
+#if 0
 	//Overflow
 	//ADC LESEN
 	uint16_t adcvalue;
@@ -110,6 +112,7 @@ ISR (TIMER0_OVF_vect)
 		PORTC &= ~(1 << PC0);
 	}
 	PORTC ^= (1 << PC1);
+#endif
 	sei();
 }
 
