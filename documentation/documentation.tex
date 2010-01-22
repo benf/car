@@ -7,6 +7,8 @@
 \usepackage{amsmath}
 \usepackage{listings}
 \usepackage{eurosym}
+\usepackage{graphics}
+\usepackage{latexsym}
 
 \title{Projekt Dokumentation}
 \author{Benjamin Franzke, Jan Klemkow und Maik Rungberg}
@@ -80,28 +82,55 @@
 		Daraus folgt, dass die eingestellte Zahl den Spannungswert repräsentiert.
 
 		Am Motortreiber wird das PWM-Signal am enable Eingang angelegt, da so nur ein Timer für den Motor anfällt.
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
 		In welche Richtung sich der Motor drehen soll, wird dann an den IN 1..4 Eingängen eingestellt.
 		
 	
 	\subsection{Sensoren}
 		Dieser Abschnitt beschreibt die Sensoren, sowie deren Funktionsweisen und Aufgaben
 		in der Fahrzeugschaltung.
-		\subsubsection{Lichtsensor} %% TODO: maik!
-			Für Bestimmung der Helligkeit der Umgebung wurde ein Fotowiderstand benutzt.
-			Anhand der Umgebungshelligkeit entscheidet die Fahrzeugschaltung selbstständig,
-			zu welchem Zeitpunkt es die Beleuchtung einschaltet.
-		\subsubsection{Abstandssensor} %% TODO: maik!
+
+
+		\subsubsection{Lichtsensor (LDR) - Fotowiderstand} %% TODO: maik!
+
+			Um bei Dunkelheit das Licht am Auto anzuschalten, wird ein Fotowiderstand genutzt.
+			Der Fotowiderstand ändert seinen Widerstand in Abhängigkeit vom Umgebungslicht.
+			Da man den Widerstand nicht direkt auslesen kann, setzt man ihn in Verbindung mit einem zweiten,
+			bekannten Widerstand, als Spannungsteiler ein, und misst die hier entstehende Spannung.
+			Sobald das Licht der Umgebung abnimmt, und unter einen bestimmten Wert sinkt,
+			schaltet der Controller das Licht vorne am Auto an.
+			So eine ähnliche Funktion bieten viele neue PKW's.
+
+			\includegraphics{images/helligkeitssensor.png}
+
+		\subsubsection{Infrarot Abstandssensor} %% TODO: maik!
 			Der Abstandssensor soll verhindern, dass das Fahrzeug frontal gegen ein Hindernis fährt.
-			...%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-			Der verwendete Sensor kann ein Objekt in einer Distanz von 10  bis 80  registrieren
-			und dessen Entfernung als Spannungspegel wieder geben. Dieser Spannungswert wird vom
-			interen Analog-Digital-Wandler in einen digitalen Wert umgewandelt und kann dann vom
-			Programm der Fahrzeugschaltung ausgewertet werden.
-			...
-			Ab einem vom Programmierer vorgegebenen Wert, werden alle Befehle zum Vorwärtsfahren
-			ignoriert, solang bis die Distanz zwischen Hindernis und Fahrzeug wieder innerhalb
-			der Toleranz liegt.
+
+			Sharp GP2Y0A21YK:\\
+			\includegraphics{images/infrarotsensor.png}
+
+			Der Infrarot Abstandssensor von Sharp bietet eine garantierte Abstandserkennung von 10cm bis 80cm.
+			In diesem Bereich liegt am Signalausgangspin (Vo) vom Sensor eine Spannung von 3.1V bis 0.4V an.
+			Wie auf dem Diagramm 1 zu sehen, fällt die Spannung nach ca. 5cm stark ab
+			und der Abstand zum Objekt ist aufgrund doppelter Werte nicht mehr eindeutig Zuordnungsbar. 
+
+			\includegraphics{images/sensordiagramm.png}
+
+			Da der Abstandssensor aber in erster Linie dazu verwendet wird,
+			weiter entfernte Objekte zu erkennen und rechtzeitig zu bremsen spielen Distanzen unter 30cm keine Rolle.
+			Um mit der internen Referenzspannung, von 2.56V, des Atmega16 arbeiten zu können,
+			wurde der Sensor über einen geeigneten Spannungsteiler „gedrosselt“ um die maximale Spannung nicht zu überschreiten. 
+
+			Im Mikrocontroller arbeitet ein 8-Bit Timer mit aktivierten Vorteiler von 256.
+			Zusammen mit dem internen Takt von 1Mhz findet alle ca. 66ms ein Überlauf statt.
+			Die Routine für den Timerüberlauf-Interrupt wird genutzt,
+			um genau nach diesen 66ms eine Messung (4 Messung des ADC's mit Bildung des arithmetischen Mittels)
+			des Sensors durchzuführen und im Falle eines Objektes in Reichweite, zu bremsen.
+			Da laut Datenblatt alle 38.3ms $\pm$ 9,6ms neue Werte am Ausgang anliegen, ist man auf der sicheren Seite. 
+
+			Sobald ein Objekt innerhalb der eingestellten Reichweite vor dem Auto erscheint,
+			blockiert der Controller die Vorwärtsfahrt (Rückwärts geht weiterhin)
+			und zusätzlich leuchtet eine rote LED als Signal.
+
 	
 	\subsection{Programmierung} %% TODO: Erläuterung der Programmierung der Fahrzeugschaltung
 		In diesem Abschnitt wird der Programmcode des Steuerkontrolers erklärt.
@@ -134,9 +163,12 @@
 		Dafür wurde das Programm "joystick.c" in der Programmiersprache C implementiert,
 		welches die Steuerinformationen vom Gamepad über die RS-232 Schnittstelle zum Steuercontroller weiterleitet.
 	
-	\subsection{Programmierung} %% TODO: Erläuterung der Programmierung der Steuerschaltung
+	\subsection{Programmierung}
+		Die Programmierung der Steuerschaltung bestand im wesentlichen in der Nutzung der hardwareseitigen UART-Implementation.
+		Weiterhin wurde das Checksum verfahren genutzt um übertragungsfehler zu vermeiden.
+		Das versenden selbst wird im Kapitel des Funkmoduls näher erleutert.
 \newpage
-\section{Funkstrecke zwischen Fahzeug- und Steuerschaltung} %% TODO
+\section{Funkstrecke zwischen Fahzeug- und Steuerschaltung}
 	\subsection{Auswahl des Funkmoduls}
 		Als Funkmodul wurde der RFM12 der Firma HOPE RF gewählt.
 		Dieses Modul beinhaltet den eigentlichen Funkchip RF12 und die nötige Grundbeschaltung für die Nutzung.
@@ -210,7 +242,7 @@
 
 \newpage
 
-\section{Quelltext} %% TODO
+\section{Quelltext}
 	In diesem Kapitel werden die einzelnen Quelltexte, der für dieses Projekt entwickelten Programme, aufgelistet.
 
 \lstset{language=C}
