@@ -39,18 +39,25 @@
 \newpage
 
 \section{Fahrzeugschaltung} %% TODO
-	Die Fahrzeugschaltung besteht im Zentralen aus dem Mikrocontroller "ATMEGA 16" und eine Funkemfänger "RFM12".
-	Versorgt wird die gesamte Schaltung über die im Fahrzeug integrierte Spannungsversorung,
-	welche aus deinem 10 Volt Akkumulator besteht.
+	Die Fahrzeugschaltung besteht im Wesentlichen aus einem Mikrocontroller "ATMEGA 16" und einem Funkemfänger "RFM12".
+	Versorgt wird die gesamte Schaltung über die im Fahrzeug integrierte Versorungsspannung,
+	welche aus einem 10 Volt Akkumulator besteht.
 	Da der "ATMEGA 16" eine Spannungsversorgung von 5 Volt benötigt, ist der Festspannungsregler "L7805"
 	zwischen Akkumulator und Mikrocontroller geschaltet.
 
 	\subsection{Motoransteuerung}
 		Für die Ansteuerung der Elektromotoren des Antriebs und der Lenkung sind vier Motortreiber, vom Typ "L298", verbaut.
-		Diese sind notwendig, um den für den Mikrocontroller zu hohen Strom für die Motoren zu regulieren.
+		Diese sind aus zwei Gründen notwendig. Zum einen ist das die Steuerung der Drehrichtung der Motoren, praktisch
+		bedeutet das vorwärts/rückwärts fahren respektive links/rechts.
+		Des weiteren sind die Treiber notwending um den -für den Microcontroller- zu hohen Strom und die höhere Spannung
+		für die Motoren zu regulieren bzw. auszuhalten.
+
+		%% TODO: Schaltbild des L298 + erklärung? kann ja gefragt sein in prüfung
+
 		Die Geschwindigkeitsregelung ist mittels Pulsweitenmodulation im Mikrocontroller implementiert.
-		Die verwendeten Bauelemente, vom typ "L298", enthalten jeweils zwei Motortreiber.
 		%% TODO: erklären wie die Pulsweitenmodulation im µC programmiert wurde! Welche HW dafür genutzt wurde!
+
+		Die verwendeten Bauelemente, vom typ "L298", enthalten jeweils zwei Motortreiber.
 		Insgesamt werden zwei Bauelemente und damit vier Motortreiber benutzt.
 		Drei Motortreiber sind für den Antriebsmotor parallel zusammen geschaltet.
 		Diese ist notwendig um den hohen Stromfluss für den Antrieb zu gewährleisten,
