@@ -3,7 +3,7 @@
 #include "usart_cfg.h"
 #include "usart.h"
 
-uint8_t char usart_receive(void) {
+uint8_t usart_receive(void) {
 	// TODO: No Error Checks are here
 	while ((UCSRA & (1 << RXC)) == 0);
 	return UDR;
@@ -15,7 +15,7 @@ void usart_transmit(uint8_t data) {
 }
 
 // functions used for debugging
-int uputc(uint8_t c) {
+int uputc(char c) {
 	usart_transmit(c);
 	return 0;
 }
