@@ -1,6 +1,7 @@
 #ifndef _USART_H_
 #define _USART_H_
 
+#include <stdint.h>
 #include "usart_cfg.h"
 
 uint8_t usart_receive(void);
