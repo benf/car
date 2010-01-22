@@ -52,30 +52,35 @@
 		Des weiteren sind die Treiber notwending um den -für den Microcontroller- zu hohen Strom und die höhere Spannung
 		für die Motoren zu regulieren bzw. auszuhalten.
 
-		%% TODO: Schaltbild des L298 + erklärung? kann ja gefragt sein in prüfung
+		%% TODO: Schaltbild des L298? kann ja gefragt sein in prüfung
 
+		Die verwendeten Bauelemente, vom typ "L298", enthalten jeweils zwei Motortreiber, welche 2A aushalten.
+		Insgesamt werden zwei Bauelemente und damit vier Motortreiber benutzt.
+		Drei Motortreiber sind für den Antriebsmotor parallel zusammen geschaltet, da dieser 
+		bei Messungen teilweise 4A verbraucht hat, somit kann er nun maximal 6A Strom ziehen.
+		Der Lenkungsmotor benötigte nur 0.5A somit sollten 2A für diesen ausreichen.
+				
+		%% TODO: Hier ein Bild vom internen Aufbau des Motortreibers einbinden.
+
+		%% TODO: PWM text prüfen
 		Die Geschwindigkeitsregelung ist mittels Pulsweitenmodulation im Mikrocontroller implementiert.
 		Die Pulsweitenmodulation basiert auf dem Wechseln zweier Spannungswerte in kurzen Zeitabständen, wobei
 		der Mittelwert der Spannungswerte verrechnet mit der Dauer des Auftreten des jeweiligen Wertes,
 		der resultierenden Spannung entspricht.
-		PWM ist ein DA-Wandler bei dem die Genauigkeit eine untergeordnete Rolle spielt.
+		PWM ist ein DA-Wandler bei dem die Genauigkeit eine untergeordnete Rolle spielt, welche bei
+		einem Motor keine Rolle spielt.
 
 		Der Vorteil dieser Methode ist, dass nur ein Pin am ATMEGA verwerndet werden muss, und dass der ATMEGA16 die PWM
 		bereits hardwareseitig implementiert hat. Dadurch fällt unnötige Rechenzeit weg.
-		%% TODO: PWM text prüfen
 		Die Anwendung einer solchen PWM besteht also aus der Konfiguration eines Timers,
-		der hardwareseitig eine Zahl hochzählt. Dabei wird beispielsweise vor dem erreichen einer bestimmten (eingestellbaren) Zahl
-		der Ausgang auf Low setzt und danach auf High. So entstehen unterschiedliche lange Impulse.
-		Und das arithmetische variiert je nach eingestellter Zahl.
+		der hardwareseitig eine Zahl hochzählt. Dabei ist vor dem Erreichen einer bestimmten
+		(eingestellbaren) Zahl der PWM-Ausgang auf Low gesetzt und danach auf High.
+		So entstehen unterschiedliche lange Impulse - das arithmetische Mittel variiert je nach eingestellter Zahl.
 		Daraus folgt, dass die eingestellte Zahl den Spannungswert repräsentiert.
 
-		Die verwendeten Bauelemente, vom typ "L298", enthalten jeweils zwei Motortreiber.
-		Insgesamt werden zwei Bauelemente und damit vier Motortreiber benutzt.
-		Drei Motortreiber sind für den Antriebsmotor parallel zusammen geschaltet.
-		Diese ist notwendig um den hohen Stromfluss für den Antrieb zu gewährleisten,
-		welchen der Mikrocontroller nicht liefern kann.
+		Am Motortreiber wird das PWM-Signal am enable Eingang angelegt, da so nur ein Timer für den Motor anfällt.
+		In welche Richtung sich der Motor drehen soll, wird dann an den IN[1..4] Eingängen eingestellt.
 		
-		%% TODO: Hier ein Bild vom internen Aufbau des Motortreibers einbinden.
 	
 	\subsection{Sensoren}
 		Dieser Abschnitt beschreibt die Sensoren, sowie deren Funktionsweisen und Aufgaben
