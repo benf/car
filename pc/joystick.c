@@ -25,32 +25,26 @@ void tx_cmd(uint8_t cmd, uint8_t param) {
 	 * => use it also to indacte data-packet-start
 	 */
 	putc(0xAA, stdout);
-	usleep(5);
+	usleep(1);
 
 	// write data itself
 	putc(cmd, stdout);
-	usleep(3);
+	usleep(1);
 	putc(param, stdout);
-	usleep(3);
+	usleep(1);
 
 	// ensure the data is transmitted NOW
 	fflush(stdout);
+	// debug output
 	fprintf(stderr, "%c: %x\n", cmd, param);
-	usleep(15);
-
+	usleep(5);
 }
 
 int main() {
 
 	int fd;
-	uint8_t num_of_axis = 0, num_of_buttons = 0;
+	uint8_t num_of_axis = 0;
 	struct js_event event;
-
-	//int16_t *axis   = NULL;
-	//int16_t *button = NULL;
-
-	//char    *name_of_joystick[80];
-
 
 	if ((fd = open(JOY_DEVICE, O_RDONLY)) == -1) {
 		fprintf(stderr, "Couldn't open joystick\n");
@@ -63,17 +57,6 @@ int main() {
 		fprintf(stderr, "The joystick needs axis\n");
 		exit(-2);
 	}
-	// ioctl(fd, JSIOCGBUTTONS,  &num_of_buttons);
-	// ioctl(fd, JSIOCGNAME(80), &name_of_joystick);
-
-	// axis   = (int16_t *) calloc(num_of_axis,   sizeof(int16_t));
-	// button = (int8_t  *) calloc(num_of_buttons, sizeof(int8_t));
-
-	//printf("%d axis\n\t%d buttons\n\n",
-	//			name_of_joystick,
-	//		num_of_axis,
-	//		num_of_buttons);
-	
 
 	fcntl(fd, F_SETFL, O_NONBLOCK);
 
@@ -83,21 +66,7 @@ int main() {
 	int8_t old_acc = 0;
 
 	while (1) {
-		//read(fd, &js, sizeof(struct js_event));
 		read(fd, &event, sizeof(event));
-		/*
-		switch (js.type & ~JS_EVENT_INIT) {
-			case JS_EVENT_AXIS:
-				axis[js.number] = js.value;
-				dir = axis[0] >> 8;
-
-				break;
-			case JS_EVENT_BUTTON:
-				button[js.number] = js.value;
-				break;
-
-		}
-		*/
 		if (event.type & JS_EVENT_AXIS) {
 			// x-direction = direction
 			if (event.number == 0) {
@@ -131,32 +100,6 @@ int main() {
 
 		}
 		usleep(1);
-
-		/*
-		//dir = axis[0] >> 8;
-		//acc = axis[1] >> 8;
-
-
-		if ((acc != acc_old)) {
-			acc_old = acc;
-
-			send('S', acc);
-
-			fprintf(stderr, "0x%" PRIx8 "\n", acc);
-			usleep(1);
-
-		} 
-
-		if ((dir != dir_old) ) {
-			dir_old = dir;
-
-			send('D', dir);
-			usleep(1)
-		} 
-		
-		//fprintf(stderr, "X: %6d Y: %6d\n", axis[0] >> 8, axis[1] >> 8);
-		//usleep(1);
-		// */
 
 	}
 
