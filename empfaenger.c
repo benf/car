@@ -12,158 +12,15 @@
 
 #include "sensor.h"
 #include "control.h"
+
 volatile uint8_t id = 0;
-
-#if 0
-volatile uint8_t action;
-volatile uint8_t param;
-#endif
-
-//volatile uint8_t hinderniss;
-//volatile uint8_t rwd;
-
-#if 0
-#define DDR_ENGINE    DDRD
-#define PORT_ENGINE   PORTD
-#define ENGINE_LEFT   PD0
-#define ENGINE_RIGHT  PD1
-#define ENGINE_ENABLE PD5
-
-#define DDR_DIRECTION DDRA
-#define DIRECTION     PORTA
-#define DIR_LEFT      PA0
-#define DIR_RIGHT     PA1
-#define DIR_EN        PA2
-#endif
-#if 0
-void init_special() {
-	DDRA &= ~((1 << PA3) & (1 << PA4));
-
-	TCCR0 |= (1 << CS02);
-	TIMSK |= (1 << TOIE0 );
-  
-	sei();
-
-}
-uint16_t ReadADC(uint8_t channel)
-{
-	uint8_t i;
-	uint16_t result;
- 
-	ADMUX = channel;                      
-	ADMUX |= (1<<REFS1) | (1<<REFS0); // Vref = 2.56V
-	ADCSRA = (1<<ADEN) | (1<<ADPS2) | (1<<ADPS0);    // Frequenzteiler 32
-
-	// dummy messung
-	ADCSRA |= (1<<ADSC);
-	while ( ADCSRA & (1<<ADSC) ) {}
-	result = ADCW;  
-
-	result = 0; 
-	// Eigentliche Messung beginnt jetzt
-	for ( i=0; i<4; ++i ) {
-		ADCSRA |= (1<<ADSC);            // single conversion
-		while ( ADCSRA & (1<<ADSC) );
-		result += ADCW;	
-	}
-	ADCSRA &= ~(1<<ADEN);
- 
-	result /= 4; //Mittelwert und zurück
-	return result;
-}
-#endif
 
 ISR (TIMER0_OVF_vect)
 {
 	cli();
 	sensor_irq();
-#if 0
-	//Overflow
-	//ADC LESEN
-	uint16_t adcvalue;
-	uint8_t  erg;
-
-	adcvalue = ReadADC(3); //Kanal 3 lesen, SHARP Sensor
-	erg = adcvalue/4;  //Durch 4 teilen => Spannung als 8-Bit Wert mal 100 (ohne Komma von 0-255)
-	/*   	
-		IR-Sensor
-		---------
-
-		adcwert * (Uref/1024) = Vout 
-		Abstand (cm) y = 22/(Vout-0.13)
-		Bremsen bei y < 50cm
-
-		LDR
-		---
-		
-		Hell	-	1K Ohm
-		Dunkel	-	500K Ohm
-  
-	*/
-	if ((erg >= 50)) { //ca. 30cm
-		hinderniss = 1;
-		PORTC |=  (1 << PC3);
-		if (!rwd)
-		cmd('S', 0);
-	} else {
-		hinderniss = 0;
-		PORTC &= ~(1 << PC3);
-	}
-      
-	adcvalue = ReadADC(4); //Kanal 4 lesen, LDR
-	erg = adcvalue/4; 
-	if ((erg >= 130))  {
-		PORTC |= (1 << PC0);
-	} else {
-		PORTC &= ~(1 << PC0);
-	}
-	PORTC ^= (1 << PC1);
-#endif
 	sei();
 }
-#if 0
-void cmd(uint8_t _action, int8_t _param) {
-	if (_action == 'S') {
-		PORTC ^= (1 << PC1);
-		if (_param == 0) {
-			OCR1A = 0;
-
-			PORT_ENGINE &= ~(1 << ENGINE_RIGHT);
-			PORT_ENGINE &= ~(1 << ENGINE_LEFT);
-		}	else if (_param > 0) {
-			rwd = 1;
-
-			OCR1A = ((uint16_t) _param) << 3;
-
-			PORT_ENGINE &= ~(1 << ENGINE_RIGHT);
-			PORT_ENGINE |=  (1 << ENGINE_LEFT);
-		} else if (_param < 0 & !hinderniss) {
-			rwd = 0;
-			OCR1A = ((uint16_t) (- _param)) << 3;
-
-			PORT_ENGINE &= ~(1 << ENGINE_LEFT);
-			PORT_ENGINE |=  (1 << ENGINE_RIGHT);
-		}
-	} else if (_action == 'D') {
-		if (_param >= -70 && _param <= 70) {
-			DIRECTION &= ~(1 << DIR_LEFT);
-			DIRECTION &= ~(1 << DIR_RIGHT);
-			DIRECTION &= ~(1 << DIR_EN);
-
-		} else if (_param > 70) {
-			DIRECTION &= ~(1 << DIR_RIGHT);
-			DIRECTION |=  (1 << DIR_LEFT);
-			DIRECTION |=  (1 << DIR_EN);
-
-		} else if (_param < -70) {
-			DIRECTION &= ~(1 << DIR_LEFT);
-			DIRECTION |=  (1 << DIR_RIGHT);
-			DIRECTION |=  (1 << DIR_EN);
-		}
-	}
-
-}
-#endif
 
 /*! TODO: interupt: Wofür die dieser interupt?  */
 ISR (INT2_vect) {
@@ -227,32 +84,15 @@ int main(void)
 	init_sensor();
 	init_control();
 
-
 	// enable external interrupt 2
 	GICR  = (1 << INT2);
 	
-#if 0
-	// 
-	DDR_ENGINE |= (1 << ENGINE_LEFT) | (1 << ENGINE_RIGHT) | (1 << ENGINE_ENABLE);
-	PORT_ENGINE &= ~(1 << ENGINE_ENABLE);
-
-	// 
-	DDR_DIRECTION |= (1 << DIR_LEFT) | (1 << DIR_RIGHT) | (1 << DIR_EN);
-	DIRECTION &= ~(1 << DIR_EN);
-#endif
 	// Interrupt PIN = Input
 	RFXX_nIRQ_PORT &= ~(1 << RFXX_nIRQ);
 
 	// enable receiver's FIFO
 	rfxx_wrt_cmd(0xCA83);
 
-
-#if 0
-	// PWM configuration
-	OCR1A   = 0;
-	TCCR1A  =  (1 << COM1A1) | (1 << WGM12) | (1 << WGM11) | (1 << WGM10);
-	TCCR1B  =  (1 << CS10);
-#endif
 
 	DDRC  |=  (1 << DDC5);
 	PORTC |=  (1 << PC5);
