@@ -55,7 +55,19 @@
 		%% TODO: Schaltbild des L298 + erklärung? kann ja gefragt sein in prüfung
 
 		Die Geschwindigkeitsregelung ist mittels Pulsweitenmodulation im Mikrocontroller implementiert.
-		%% TODO: erklären wie die Pulsweitenmodulation im µC programmiert wurde! Welche HW dafür genutzt wurde!
+		Die Pulsweitenmodulation basiert auf dem Wechseln zweier Spannungswerte in kurzen Zeitabständen, wobei
+		der Mittelwert der Spannungswerte verrechnet mit der Dauer des Auftreten des jeweiligen Wertes,
+		der resultierenden Spannung entspricht.
+		PWM ist ein DA-Wandler bei dem die Genauigkeit eine untergeordnete Rolle spielt.
+
+		Der Vorteil dieser Methode ist, dass nur ein Pin am ATMEGA verwerndet werden muss, und dass der ATMEGA16 die PWM
+		bereits hardwareseitig implementiert hat. Dadurch fällt unnötige Rechenzeit weg.
+		%% TODO: PWM text prüfen
+		Die Anwendung einer solchen PWM besteht also aus der Konfiguration eines Timers,
+		der hardwareseitig eine Zahl hochzählt. Dabei wird beispielsweise vor dem erreichen einer bestimmten (eingestellbaren) Zahl
+		der Ausgang auf Low setzt und danach auf High. So entstehen unterschiedliche lange Impulse.
+		Und das arithmetische variiert je nach eingestellter Zahl.
+		Daraus folgt, dass die eingestellte Zahl den Spannungswert repräsentiert.
 
 		Die verwendeten Bauelemente, vom typ "L298", enthalten jeweils zwei Motortreiber.
 		Insgesamt werden zwei Bauelemente und damit vier Motortreiber benutzt.
