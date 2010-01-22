@@ -41,8 +41,7 @@ ISR (USART_RXC_vect) {
 		buffer[3] = _crc_ibutton_update(_crc_ibutton_update(0, buffer[1]), buffer[2]);
 		PORTC |= (1 << PC6);
 		rf12_send_data(buffer + 1, 3);
-	PORTC &= ~(1 << PC6);
-
+		PORTC &= ~(1 << PC6);
 		PORTC ^= (1 << PC0);
 	}
 	PORTC ^= (1 << PC1);
