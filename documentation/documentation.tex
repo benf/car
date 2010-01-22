@@ -27,32 +27,33 @@
 	Die Steuerschaltung ist am Computer angeschlossen und sendet die Steuerinformationen an die Fahrzeugschaltung.
 
 \section{Umbau am Auto} %% TODO
-	Als Grundlage wurde ein Funkferngesteuertes Auto benutzt,
-	welches im Internet bestellt wurde (siehe link).
-	%% TODO: Bezeichnung des Auto und/oder Link zum Webshop
-	Die vorhandene Elektronik zur Funkfernsteuerung wurde entfernt und durch eine eigene ersetzt.
-	Vom Auto wurden das Gestell, die Elektromotoren, zum Antrieb und zur Lenkung,
-	sowie das Gehäuse und der Akkumolator übernommen.
-	An die Kabel der der Motoren wurden Verlängerungen gelöttet,
-	welche sich einfacher auf dem Steckbrettern befestigen lassen.
+	Als Grundlage wurde ein Funkferngesteuertes Auto (RC-Car) benutzt,
+	welches im Internet bei Ebay.de bestellt wurde.
+	Die vorhandene Elektronik zur Funkfernsteuerung wurde entfernt
+	und durch eine selbstentwickelte Fahrzeugschaltung ersetzt.
+	Vom Fahrzeug wurden das Gestell, die Elektromotoren, zum Antrieb und zur Lenkung,
+	sowie der Akkumulator übernommen.
+	An die Kabel der Elektromotoren wurden Verlängerungen gelötet,
+	welche sich einfacher auf dem verwendeten Steckbrett befestigen lassen.
 
 \newpage
 
 \section{Fahrzeugschaltung} %% TODO
-	Die Fahrzeugschaltung besteht im Zentralen aus dem ATMEGA16 und eine Funkemfänger.
-	%% TODO: Bezeichnung des Funkemfängers herreussuchen.
-	Die Schaltung wird über die im Fahrzeug integrieten 10 Volt Spannungsversorungs mit versort.
-	Da der ATMEGA 16 eine Spannungsverogung von 5 Volt benötigt ist ein Festspannungsregler
-	%% TODO: Typ des Festspannungsreglers im Auto
-	zwischen Akkumolator und Microkontroler geschaltet.
+	Die Fahrzeugschaltung besteht im Zentralen aus dem Mikrocontroller "ATMEGA 16" und eine Funkemfänger "RFM12".
+	Versorgt wird die gesamte Schaltung über die im Fahrzeug integrierte Spannungsversorung,
+	welche aus deinem 10 Volt Akkumulator besteht.
+	Da der "ATMEGA 16" eine Spannungsversorgung von 5 Volt benötigt, ist der Festspannungsregler "L7805"
+	zwischen Akkumulator und Mikrocontroller geschaltet.
 
 	\subsection{Motoransteuerung}
-		Für die Ansteuerung der Elektromotoren des Antriebs und der Lenkung sind vier Motortreiber, vom Typ L298, verbaut.
-		Diese sind notwendig, um den für den Mikrokontroler zu hohen Strom für die Motoren zu regulieren.
+		Für die Ansteuerung der Elektromotoren des Antriebs und der Lenkung sind vier Motortreiber, vom Typ "L298", verbaut.
+		Diese sind notwendig, um den für den Mikrocontroller zu hohen Strom für die Motoren zu regulieren.
 		Die Geschwindigkeitsregelung ist mittels Pulsweitenmodulation im Mikrocontroller implementiert.
-		Die verwendeten Bauelemente enthalten zwei Motortreiber. Insgesammt werden zwei Bauelemente und damit vier Motortreiber benutzt.
+		Die verwendeten Bauelemente, vom typ "L298", enthalten jeweils zwei Motortreiber.
+		Insgesamt werden zwei Bauelemente und damit vier Motortreiber benutzt.
 		Drei Motortreiber sind für den Antriebsmotor parallel zusammen geschaltet.
-		Diese ist notwendig um den hohen Stromfluss für den Antrieb zu gewährleisten.
+		Diese ist notwendig um den hohen Stromfluss für den Antrieb zu gewährleisten,
+		welchen der Mikrocontroller nicht liefern kann.
 		
 		%% TODO: Hier ein Bild vom internen Aufbau des Motortreibers einbinden.
 	
@@ -117,4 +118,4 @@
 
 \include{sender.c}
 
-%% vim: set sts=0 fenc=utf-8: 
+%% vim: set spelllang=de sts=0 fenc=utf-8: 
