@@ -135,20 +135,65 @@
 		welches die Steuerinformationen vom Gamepad über die RS-232 Schnittstelle zum Steuercontroller weiterleitet.
 	
 	\subsection{Programmierung} %% TODO: Erläuterung der Programmierung der Steuerschaltung
-
-\section{Funkverbindung zwischen Fahzeugschaltung und Steuerschaltung} %% TODO
+\newpage
+\section{Funkstrecke zwischen Fahzeug- und Steuerschaltung} %% TODO
 	\subsection{Auswahl des Funkmoduls}
-		Als Funkmodul würde der RFM12 der Firma HOPE RF gewählt.
+		Als Funkmodul wurde der RFM12 der Firma HOPE RF gewählt.
 		Dieses Modul beinhaltet den eigentlichen Funkchip RF12 und die nötige Grundbeschaltung für die Nutzung.
 
-		Die Gründe für die Wahl dieses Moduls liegen im günstigen Preis von%% \EUR{5} pro Stück.
+		Die Gründe für die Wahl dieses Moduls liegen im günstigen Preis von 5 EURO pro Stück.
 		Weiterhin bietet jedes der Module die Möglichkeit zu Senden und zu Empfangen.
 		Dieses Feature wird zwar momentan nicht benutzt, aber bei weiterentwicklungen wenn man Sensordaten
 		an den PC zurück schicken möchte, wird es sicher nützlich sein.
 		
 		Das letzte Kriterium war die einfache ansteuerbarkeit mit einem Protokoll, dass bereits im ATMEGA 
 		hardwareseitig implementiert ist.
+	\subsection{Implementierung}
+		Das Funkmodul RF12 besitzt mehrere unterschiedliche Interfaces 
+		zur Kommunikation mit dem Mikrocontroller.
+		Alle Einstellungen zur Funküberragung werden Kommandobasiert
+		über die SPI-Schnittstelle gesendet.
+
+		Für das Senden/Empfangen der Daten stehen zusätzlich andere Datenleitungen
+		zur Verfügung, es besteht aber auch die Möglichkeit die Daten in Befehle
+		kodiert über die SPI-Schnittstelle an das Modul zu transferrieren bzw
+		durch Kommandos ein Auslesen des FIFO`s zu initiieren.
+
+		Gewählt wurde für dieses Projekt das SPI-Interface, da so die komplette 
+		Kommunikation hardwareseitig ablaufen kann und so die Modul-Steuerung einheitlich ist.
+
+		Der RF12 besitzt ein 16bit FIFO in das die Daten direkt hineingeschrieben werden können,
+		Der Chip liest die Daten dann aus dem FIFO und versendet sie.
+		Dies ist von Vorteil gegenüber anderen Chips des gleichen herstellers (RF02), bei dem
+		musste jedes Bit einzeln Übertragen und das Versenden abgewartet werden.
+
+	\subsection{Ablauf Senden/Empfangen}
+		Der Sender schreibt zuerst eine sogenannte PREAMBLE bestehend aus dreimal 
+		hintereinander 0xAA (hex). Diese signalisiert dem sendenden dass neue Daten 
+		Versendet werden sollen.
+		Danach wird ein Synchronisierungspattern gesendet 0x2DD4 (hex), dieser wird
+		auf Empfaengerseite genutzt um sich zu synchronisieren und schlusszufolgern,
+		dass Daten nun gesendet werden. Ob die Empfaengerseite einen
+		Synchronisierungspattern nutzen soll ist einstellbar, eine weitere Möglichkeit
+		wäre ein VDI (Valid Data Indicator). Es wurde sich in diesem Projekt
+		aber für ersteres entschieden.
+
+		Sind nun beide Funk-Chips bereit zu Senden bzw zu empfangen werden nun die Daten
+		selbst an den Sender geschickt und auf Empfängerseite vom Chip gelesen.
+
+		Beendet wird ein Transfer auf Senderseite wiederrum durch die PREAMBLE.
+
+	\subsection{Probleme}
+		Während der Entwicklung gab es immer wieder Probleme mit undokumentierten Eigentschaften,
+		z.b. dass der Chip beim Starten (vom Hersteller auch POR Power-On Reset genannt)
+		eine Zeit zum initialisieren brauch, diese Eigenschaften mussten aus dem Beispielcode 
+		entnommen werden.
 		
+		Weiterhin ist das SPI-Interface teilweise verbuggt, sodass Befehle redundant verschickt 
+		werden mussten.
+		
+		%% TODO: add example
+
 \newpage
 
 \section{Quelltext} %% TODO
