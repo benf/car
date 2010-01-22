@@ -6,6 +6,7 @@
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
 \usepackage{listings}
+\usepackage{eurosym}
 
 \title{Projekt Dokumentation}
 \author{Benjamin Franzke, Jan Klemkow und Maik Rungberg}
@@ -135,7 +136,18 @@
 	\subsection{Programmierung} %% TODO: Erläuterung der Programmierung der Steuerschaltung
 
 \section{Funkverbindung zwischen Fahzeugschaltung und Steuerschaltung} %% TODO
+	\subsection{Auswahl des Funkmoduls}
+		Als Funkmodul würde der RFM12 der Firma HOPE RF gewählt.
+		Dieses Modul beinhaltet den eigentlichen Funkchip RF12 und die nötige Grundbeschaltung für die Nutzung.
 
+		Die Gründe für die Wahl dieses Moduls liegen im günstigen Preis von \EUR{5} pro Stück.
+		Weiterhin bietet jedes der Module die Möglichkeit zu Senden und zu Empfangen.
+		Dieses Feature wird zwar momentan nicht benutzt, aber bei weiterentwicklungen wenn man Sensordaten
+		an den PC zurück schicken möchte, wird es sicher nützlich sein.
+		
+		Das letzte Kriterium war die einfache ansteuerbarkeit mit einem Protokoll, dass bereits im ATMEGA 
+		hardwareseitig implementiert ist.
+		
 \newpage
 
 \section{Quelltext} %% TODO
