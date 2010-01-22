@@ -64,9 +64,13 @@ ISR (INT2_vect) {
 		case 2: // checksum
 
 			// matches checksum and data?
-			if (data == _crc_ibutton_update(_crc_ibutton_update(0, action), param)) {
+			if (data == _crc_ibutton_update(
+				_crc_ibutton_update(0, action),
+				param)) {
 				control_cmd(action, param);
-				// inicate that the package was received succesfull
+
+				// inicate that the package
+				// was received succesfull
 				PORTC |= (1 << PC4);
 			}
 
@@ -93,13 +97,16 @@ int main(void)
 	DDRC  |=  (1 << PC4);
 	PORTC &= ~(1 << PC4);
 
-	/* wait 400ms to give the rf12's POR (Power-On Reset) time to
-	 * initialize the registers etc.. (initializing wouldnt work without)
+	/* wait 400ms to give the rf12's POR
+	 * (Power-On Reset) time to 
+	 * initialize the registers etc..
+	 * (initializing wouldnt work without)
 	 *
 	 * .. this is NOT documented in the datasheet :\
 	 *
 	 * notice:
-	 *  the producer did the same in the example code but let it uncommented
+	 *  the producer did the same in the example code 
+	 *  but let it uncommented
 	 *
 	 */
 	_delay_ms(400);

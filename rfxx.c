@@ -16,7 +16,7 @@
  * senden und empfagen gleichzeitig stattfindet.
  *
  * \param	cmd		Befehl fuers Funkmodul
- * \return			Antwort des Moduls auf den Befehl (z.b. FIFO read)
+ * \return			Antwort des Moduls auf den Befehl
  */
 
 uint16_t rfxx_wrt_cmd(uint16_t cmd){
@@ -75,13 +75,15 @@ uint16_t rfxx_wrt_cmd(uint16_t cmd){
  */
 
 void rf12_send(uint8_t data) {
-	while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ)); // wait for prev TX to be over
+	// wait for prev TX to be over
+	while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ));
 	// the data is encoded into a command that is sent via spi
 	rfxx_wrt_cmd(0xb800 | data);
 }
 
 /**
- * \brief Initialisierung der SPI Schnittstelle zur Kommunikation mit den Funkmodulen
+ * \brief Initialisierung der SPI Schnittstelle
+ * zur Kommunikation mit den Funkmodulen
  */
 void rfxx_init(void) {
 	//_delay_ms(200);
@@ -128,7 +130,8 @@ uint8_t rf12_recv(void) {
 	// but read in the following
 	rfxx_wrt_cmd(0x0000);
 
-	// send the real read command - the data is clocked out while receiption
+	// send the real read command 
+	// - the data is clocked out while receiption
 	// seems as this acts just as a dummy for receiving
 	// the transfer of data is initiated by the previous command
 	data = rfxx_wrt_cmd(0xb000);
@@ -301,7 +304,7 @@ void rf01_init(void) {
 	rfxx_wrt_cmd(0xA640); //434MHz
 	rfxx_wrt_cmd(0xC847); //4.8kbps
 	rfxx_wrt_cmd(0xC69B); //AFC setting
-	rfxx_wrt_cmd(0xC42A); //Clock recovery manual control,Digital filter,DQD=4
+	rfxx_wrt_cmd(0xC42A); //Clock recovery 
 	rfxx_wrt_cmd(0xC240); //output 1.66MHz
 	rfxx_wrt_cmd(0xC080);
 	rfxx_wrt_cmd(0xCE84); //use FIFO

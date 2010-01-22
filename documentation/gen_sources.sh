@@ -4,7 +4,7 @@ for file in ../*.{c,h} ../Makefile ../pc/joystick.c
 do
 	
 	name=$(basename $file)
-
+	echo '\newpage' >> sources.tex
 	echo '\subsection{'$(echo $name | sed 's/_/\\\_/g')'}' >> sources.tex
 	echo '\lstinputlisting{'$file'}' >> sources.tex
 

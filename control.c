@@ -5,17 +5,20 @@
 
 void init_control() {
 
-	// 
-	DDR_ENGINE |= (1 << ENGINE_LEFT) | (1 << ENGINE_RIGHT) | (1 << ENGINE_ENABLE);
+	// set engine pins to output
+	DDR_ENGINE |= (1 << ENGINE_LEFT) | (1 << ENGINE_RIGHT)| 
+			(1 << ENGINE_ENABLE);
 	PORT_ENGINE &= ~(1 << ENGINE_ENABLE);
 
-	// 
-	DDR_DIRECTION |= (1 << DIR_LEFT) | (1 << DIR_RIGHT) | (1 << DIR_EN);
+	// set direction pins to output
+	DDR_DIRECTION |= (1 << DIR_LEFT) | (1 << DIR_RIGHT) |
+			(1 << DIR_EN);
 	DIRECTION &= ~(1 << DIR_EN);
 
 	// PWM configuration
 	OCR1A   = 0;
-	TCCR1A  =  (1 << COM1A1) | (1 << WGM12) | (1 << WGM11) | (1 << WGM10);
+	TCCR1A  =  (1 << COM1A1) | (1 << WGM12) | 
+			(1 << WGM11) | (1 << WGM10);
 	TCCR1B  =  (1 << CS10);
 
 

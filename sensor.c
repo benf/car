@@ -10,7 +10,8 @@ uint16_t read_adc(uint8_t channel)
  
 	ADMUX = channel;                      
 	ADMUX |= (1<<REFS1) | (1<<REFS0); // Vref = 2.56V
-	ADCSRA = (1<<ADEN) | (1<<ADPS2) | (1<<ADPS0); // Frequenzteiler 32
+	// enable AD, Frequenzteiler 32
+	ADCSRA = (1<<ADEN) | (1<<ADPS2) | (1<<ADPS0); 
 
 	// dummy messung
 	ADCSRA |= (1<<ADSC);
@@ -47,7 +48,11 @@ void sensor_irq() {
 	uint8_t  erg;
 
 	adcvalue = read_adc(3); //Kanal 3 lesen, SHARP Sensor
-	erg = adcvalue/4;  //Durch 4 teilen => Spannung als 8-Bit Wert mal 100 (ohne Komma von 0-255)
+	
+	 // Durch 4 teilen => Spannung als 8-Bit Wert
+	 // mal 100 (ohne Komma von 0-255)
+
+	erg = adcvalue/4;
 	/*   	
 		IR-Sensor
 		---------
