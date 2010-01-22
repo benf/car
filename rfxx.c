@@ -75,7 +75,8 @@ uint16_t rfxx_wrt_cmd(uint16_t cmd){
  */
 
 void rf12_send(uint8_t data) {
-	while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ)); // wait for previous TX
+	while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ)); // wait for prev TX to be over
+	// the data is encoded into a command that is sent via spi
 	rfxx_wrt_cmd(0xb800 | data);
 }
 
@@ -99,6 +100,7 @@ void rfxx_init(void) {
 	PORT_SPI |=  (1 << SPI_MOSI);
 	PORT_SPI &= ~(1 << SPI_SCK);
 #else
+	// hardware spi init: spi enable, master mode, fOSC/16 sck freq
 	SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0);
 #endif
 
@@ -113,7 +115,22 @@ uint8_t rf12_recv(void) {
 	uint16_t data;
 	// while (RFXX_nIRQ_PIN & (1 << RFXX_nIRQ));
 
+	// send a status read command
+	// THIS IS NOT DOCUMENTED - was just used in example code
+	// and did NOT work without this
+	//
+	// notice: 
+	// this command would send the fifo data after 16 status bits
+	// but: the command is 16bit long so we cant read it without
+	// sending a new command
+	//
+	// conclosion: the receiption is initiated by this command
+	// but read in the following
 	rfxx_wrt_cmd(0x0000);
+
+	// send the real read command - the data is clocked out while receiption
+	// seems as this acts just as a dummy for receiving
+	// the transfer of data is initiated by the previous command
 	data = rfxx_wrt_cmd(0xb000);
 	
 	return (uint8_t) 0x00ff & data;
@@ -121,10 +138,15 @@ uint8_t rf12_recv(void) {
 /**
  * \brief Lese \a num emfpangene Bytes vom Funkmodul
  */
+
+// this function was used while debugging 
+// but this is blocking mode
+// and we need nonblocking mode => irq
 void rf12_recv_data(uint8_t *data, uint8_t num) {
 	uint8_t i;
+	// disabe fifo
 	rfxx_wrt_cmd(0xCA81);
-	//Enable FIFO
+	// enable FIFO
 	rfxx_wrt_cmd(0xCA83);
 	for (i = 0; i < num; ++i)
 		*data++ = rf12_recv();
@@ -136,8 +158,10 @@ void rf12_recv_data(uint8_t *data, uint8_t num) {
 void rf12_send_data(uint8_t *data, uint8_t num) {
 	uint8_t i;
 	
-	rfxx_wrt_cmd(0x0000); // TODO: figure out WHY this is neccassery for freading FIFO
-	rfxx_wrt_cmd(0x8239); // enable TX, PLL, synthesizer, crystal
+	// again a status read command as while receiption
+	rfxx_wrt_cmd(0x0000);
+	// enable TX, PLL, synthesizer, crystal
+	rfxx_wrt_cmd(0x8239); 
 
 	// preamble
 	for (i = 0; i < 3; ++i)
@@ -155,7 +179,7 @@ void rf12_send_data(uint8_t *data, uint8_t num) {
 	for (i = 0; i < 3; ++i)
 		rf12_send(0xAA);
 
-	// TODO: disabl TX?
+	// disable tx again
 	rfxx_wrt_cmd(0x8201);
 }
 
@@ -163,25 +187,30 @@ void rf12_send_data(uint8_t *data, uint8_t num) {
  * \brief Initialisierung des Funkmoduls
  */
 void rf12_init(uint8_t transfer) {
-	rfxx_wrt_cmd(0x80D8);//EL,EF,433band,12.5pF
+
+	rfxx_wrt_cmd(0x80D8); //EL,EF,433band,12.5pF
 
 	rfxx_wrt_cmd(0x8209 | (transfer ? 0x0030 : 0x00D0));
- // rfxx_wrt_cmd(0x82D9);//ER,EBB,!et,ES,EX,!eb,!ew,DC
 
-	rfxx_wrt_cmd(0xA640);//434MHz
-	rfxx_wrt_cmd(0xC647);//4.8kbps
-	rfxx_wrt_cmd(0x94A0);//VDI,FAST,134kHz,0dBm,-103dBm
-	rfxx_wrt_cmd(0xC2AC);//AL,!ml,DIG,DQD4
-	rfxx_wrt_cmd(0xCA81);//FIFO8,SYNC,!ff,DR{
-	rfxx_wrt_cmd(0x80D8);//EL,EF,433band,12.5pF
-	rfxx_wrt_cmd(0xC483);//@PWR,NO RSTRIC,!st,!fi,OE,EN
-	rfxx_wrt_cmd(0x9850);// !mp,9810=30kHz,MAX OUT
-	rfxx_wrt_cmd(0xE000);//NOT USE
-	rfxx_wrt_cmd(0xC800);//NOT USE
-	rfxx_wrt_cmd(0xC400);//1.66MHz,2.2V
+	// the following command are taken from example code
+	rfxx_wrt_cmd(0xA640); //434MHz
+	rfxx_wrt_cmd(0xC647); //4.8kbps
+	rfxx_wrt_cmd(0x94A0); //VDI,FAST,134kHz,0dBm,-103dBm
+	rfxx_wrt_cmd(0xC2AC); //AL,!ml,DIG,DQD4
+	rfxx_wrt_cmd(0xCA81); //FIFO8,SYNC,!ff,DR{
+	rfxx_wrt_cmd(0x80D8); //EL,EF,433band,12.5pF
+	rfxx_wrt_cmd(0xC483); //@PWR,NO RSTRIC,!st,!fi,OE,EN
+	rfxx_wrt_cmd(0x9850); // !mp,9810=30kHz,MAX OUT
+	rfxx_wrt_cmd(0xE000); //NOT USE
+	rfxx_wrt_cmd(0xC800); //NOT USE
+	rfxx_wrt_cmd(0xC400); //1.66MHz,2.2V
 
 }
 
+
+// the following is old stuff
+// we had other types of radio-chips
+// these are the old routines..
 #if 0
 uint8_t RF01_RDFIFO(void) {
 	uint8_t data;
