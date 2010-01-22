@@ -36,7 +36,7 @@ void control_cmd (uint8_t _action, int8_t _param) {
 
 			PORT_ENGINE &= ~(1 << ENGINE_RIGHT);
 			PORT_ENGINE |=  (1 << ENGINE_LEFT);
-		} else if (_param < 0 & !hinderniss) {
+		} else if ((_param < 0) & !hinderniss) {
 			rwd = 0;
 			OCR1A = ((uint16_t) (- _param)) << 3;
 
