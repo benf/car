@@ -12,10 +12,10 @@
  * Diese Funktion sendet \a cmd an ein RFxx Funkmodul
  * unter Nutzung der SPI-Kommando Schnittstelle der Module.
  *
- * Die Übertragung verläuft full-duplex sodass,
+ * Die Uebertragung verlaeuft full-duplex sodass,
  * senden und empfagen gleichzeitig stattfindet.
  *
- * \param	cmd		Befehl fürs Funkmodul
+ * \param	cmd		Befehl fuers Funkmodul
  * \return			Antwort des Moduls auf den Befehl (z.b. FIFO read)
  */
 

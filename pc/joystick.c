@@ -19,8 +19,7 @@
 void tx_cmd(uint8_t cmd, uint8_t param) {
 
 	/* PACKET START INDICATOR
-	 *
-	 * each data packet between PC and µC to start with 0xAA!
+	 * each data packet between PC and mC has to start with 0xAA
 	 * 0xAA CANT be transferred with rfm12 (see rfm12's preamble's)
 	 * => use it also to indacte data-packet-start
 	 */

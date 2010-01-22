@@ -10,7 +10,7 @@ uint16_t read_adc(uint8_t channel)
  
 	ADMUX = channel;                      
 	ADMUX |= (1<<REFS1) | (1<<REFS0); // Vref = 2.56V
-	ADCSRA = (1<<ADEN) | (1<<ADPS2) | (1<<ADPS0);    // Frequenzteiler 32
+	ADCSRA = (1<<ADEN) | (1<<ADPS2) | (1<<ADPS0); // Frequenzteiler 32
 
 	// dummy messung
 	ADCSRA |= (1<<ADSC);
@@ -20,13 +20,13 @@ uint16_t read_adc(uint8_t channel)
 	result = 0; 
 	// Eigentliche Messung beginnt jetzt
 	for ( i=0; i<4; ++i ) {
-		ADCSRA |= (1<<ADSC);            // single conversion
+		ADCSRA |= (1<<ADSC); // single conversion
 		while ( ADCSRA & (1<<ADSC) );
 		result += ADCW;	
 	}
 	ADCSRA &= ~(1<<ADEN);
  
-	result /= 4; //Mittelwert und zurück
+	result /= 4; //Mittelwert und zurueck
 	return result;
 }
 
