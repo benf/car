@@ -217,13 +217,9 @@ int main(void)
 	init_special();
 
 
-	// enable external interrupt 1
-	//// MCUCSR &= ~(1 << ISC2);
-	// GICR  = (1 << INT2);
+	// enable external interrupt 2
+	GICR  = (1 << INT2);
 	
-	//not used
-	/////MCUCR = (1 << ISC01) | (1 << ISC00);
-
 	// 
 	DDR_ENGINE |= (1 << ENGINE_LEFT) | (1 << ENGINE_RIGHT) | (1 << ENGINE_ENABLE);
 	PORT_ENGINE &= ~(1 << ENGINE_ENABLE);
@@ -248,7 +244,7 @@ int main(void)
 	PORTC |=  (1 << PC5);
 
 	// enable interrupts (global)
-	//	sei();
+	sei();
 
 	PORTC &=  ~(1 << PC1);
 
