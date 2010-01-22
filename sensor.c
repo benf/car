@@ -1,4 +1,5 @@
 #include <avr/io.h>
+#include "sensor.h"
 
 uint16_t read_adc(uint8_t channel)
 {
@@ -43,7 +44,7 @@ void sensor_irq() {
 	uint16_t adcvalue;
 	uint8_t  erg;
 
-	adcvalue = ReadADC(3); //Kanal 3 lesen, SHARP Sensor
+	adcvalue = read_adc(3); //Kanal 3 lesen, SHARP Sensor
 	erg = adcvalue/4;  //Durch 4 teilen => Spannung als 8-Bit Wert mal 100 (ohne Komma von 0-255)
 	/*   	
 		IR-Sensor
@@ -70,7 +71,7 @@ void sensor_irq() {
 		PORTC &= ~(1 << PC3);
 	}
       
-	adcvalue = ReadADC(4); //Kanal 4 lesen, LDR
+	adcvalue = read_adc(4); //Kanal 4 lesen, LDR
 	erg = adcvalue/4; 
 	if ((erg >= 130))  {
 		PORTC |= (1 << PC0);

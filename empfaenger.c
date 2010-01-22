@@ -10,13 +10,16 @@
 #include "rf12_cfg.h"
 #include "rfxx.h"
 
+#include "sensor.h"
+
 volatile uint8_t id = 0;
 
 volatile uint8_t action;
 volatile uint8_t param;
 
-volatile uint8_t hinderniss;
-volatile uint8_t rwd;
+//volatile uint8_t hinderniss;
+//volatile uint8_t rwd;
+
 #define DDR_ENGINE    DDRD
 #define PORT_ENGINE   PORTD
 #define ENGINE_LEFT   PD0
@@ -217,7 +220,7 @@ int main(void)
 
 	// things just needed for debugging
 	//DDRA = 0xff;
-	init_special();
+	init_sensor();
 
 
 	// enable external interrupt 2
