@@ -67,15 +67,6 @@ int main(void) {
 
 	while(1);
 
-	{
-		PORTC ^= (1 << PC6);
-
-//		uint8_t i;
-//		for (i = 0; i < 10; ++i)
-			_delay_ms(10);
-
-	}
-
 	return 0;
 }
 
