@@ -3,18 +3,19 @@
 #include "usart_cfg.h"
 #include "usart.h"
 
-unsigned char usart_receive(void) {
+uint8_t char usart_receive(void) {
 	// TODO: No Error Checks are here
 	while ((UCSRA & (1 << RXC)) == 0);
 	return UDR;
 }
 
-void usart_transmit(unsigned char data) {
+void usart_transmit(uint8_t data) {
 	while ((UCSRA & (1 << UDRE)) == 0);
 	UDR = data;
 }
 
-int uputc(unsigned char c) {
+// functions used for debugging
+int uputc(uint8_t c) {
 	usart_transmit(c);
 	return 0;
 }
@@ -24,10 +25,12 @@ void uart_puts(char *s) {
 		uputc(*s++);
 }
 
+
 void init_usart(void) {
 	UCSRB |= (1 << TXEN)  | (1 << RXEN)  | (1 << RXCIE);    // UART TX RX einschalten + RX IRQ
 	UCSRC |= (1 << URSEL) | (1 << UCSZ1) | (1 << UCSZ0);    // Asynchron 8N1 
 
+	// UBBR{H,L}_VALUE, USE_2X and U2X is set by setbaud.h
 	UBRRH = UBRRH_VALUE;
 	UBRRL = UBRRL_VALUE;
 #if USE_2X // maybe set after baud-calculation by setbaud.h
@@ -35,10 +38,7 @@ void init_usart(void) {
 #else
 	UCSRA &= ~(1 << U2X);
 #endif
-	/* //old
-	UBRRH = UBRR_VAL >> 8;
-	UBRRL = UBRR_VAL & 0xFF;
-	*/
+
 }
 
 /* vim: set sts=0 fenc=utf-8: */
