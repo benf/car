@@ -50,6 +50,7 @@
 		Diese sind notwendig, um den für den Mikrocontroller zu hohen Strom für die Motoren zu regulieren.
 		Die Geschwindigkeitsregelung ist mittels Pulsweitenmodulation im Mikrocontroller implementiert.
 		Die verwendeten Bauelemente, vom typ "L298", enthalten jeweils zwei Motortreiber.
+		%% TODO: erklären wie die Pulsweitenmodulation im µC programmiert wurde! Welche HW dafür genutzt wurde!
 		Insgesamt werden zwei Bauelemente und damit vier Motortreiber benutzt.
 		Drei Motortreiber sind für den Antriebsmotor parallel zusammen geschaltet.
 		Diese ist notwendig um den hohen Stromfluss für den Antrieb zu gewährleisten,
@@ -60,11 +61,11 @@
 	\subsection{Sensoren}
 		Dieser Abschnitt beschreibt die Sensoren, sowie deren Funktionsweisen und Aufgaben
 		in der Fahrzeugschaltung.
-		\subsubsection{Lichtsensor}
+		\subsubsection{Lichtsensor} %% TODO: maik!
 			Für Bestimmung der Helligkeit der Umgebung wurde ein Fotowiderstand benutzt.
 			Anhand der Umgebungshelligkeit entscheidet die Fahrzeugschaltung selbstständig,
 			zu welchem Zeitpunkt es die Beleuchtung einschaltet.
-		\subsubsection{Abstandssensor}
+		\subsubsection{Abstandssensor} %% TODO: maik!
 			Der Abstandssensor soll verhindern, dass das Fahrzeug frontal gegen ein Hindernis fährt.
 			...
 			Der verwendete Sensor kann ein Objekt in einer Distanz von 10cm bis 80cm registrieren
@@ -97,14 +98,14 @@
 		Die folgende Abbildung zeigt die Beschaltung des MAX-232 mit dem Mikrocontroller und der RS-232-Schnittstelle des Computers.
 		%% TODO: Bild einfügen von MAX232-µC-PC
 
-		Für die Kommunikation wird eine externer Quatz benötigt, da der intere Quatz zu ungenau und zu fehleranfällig ist.
-		Bei einem Versuch mit dem internen Quatz konnte eine kommunikation mit 600 Baud realisiert werden.
-		Diese funktionierte allerdings an einem anderen Standort nicht mehr. Diese Phänomen kann auf die fehler anfälligkeit,
-		z.B. bei Temperaturveränderungen zurückgeführt werden.
+		Für die Kommunikation wird eine externer Quarz benötigt, da der intere Quarz zu ungenau und zu fehleranfällig ist.
+		Bei einem Versuch mit dem internen Quarz konnte eine Kommunikation mit 600 Baud realisiert werden.
+		Diese funktionierte bei einem weiteren Versuch an einem anderen Standort nicht mehr.
+		Diese Phänomen kann auf die Fehleranfälligkeit, z.B. in folge von Temperaturveränderungeni, zurückgeführt werden.
 
 	\subsection{Anbindung des Gamepad} %% TODO
 		Ein Gamepad wird für die Schnittstelle zum Benutzer verwendet.
-		Dafür wurde ein Programm in der Programmiersprache C implementiert,
+		Dafür wurde das Programm "joystick.c" in der Programmiersprache C implementiert,
 		welches die Steuerinformationen vom Gamepad über die RS-232 Schnittstelle zum Steuercontroller weiterleitet.
 	
 	\subsection{Programmierung} %% TODO: Erläuterung der Programmierung der Steuerschaltung
