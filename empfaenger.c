@@ -11,15 +11,18 @@
 #include "rfxx.h"
 
 #include "sensor.h"
-
+#include "control.h"
 volatile uint8_t id = 0;
 
+#if 0
 volatile uint8_t action;
 volatile uint8_t param;
+#endif
 
 //volatile uint8_t hinderniss;
 //volatile uint8_t rwd;
 
+#if 0
 #define DDR_ENGINE    DDRD
 #define PORT_ENGINE   PORTD
 #define ENGINE_LEFT   PD0
@@ -31,7 +34,7 @@ volatile uint8_t param;
 #define DIR_LEFT      PA0
 #define DIR_RIGHT     PA1
 #define DIR_EN        PA2
-
+#endif
 #if 0
 void init_special() {
 	DDRA &= ~((1 << PA3) & (1 << PA4));
@@ -118,8 +121,7 @@ ISR (TIMER0_OVF_vect)
 #endif
 	sei();
 }
-
-
+#if 0
 void cmd(uint8_t _action, int8_t _param) {
 	if (_action == 'S') {
 		PORTC ^= (1 << PC1);
@@ -161,6 +163,7 @@ void cmd(uint8_t _action, int8_t _param) {
 	}
 
 }
+#endif
 
 /*! TODO: interupt: Wofür die dieser interupt?  */
 ISR (INT2_vect) {
@@ -184,7 +187,7 @@ ISR (INT2_vect) {
 			break;
 		case 2: // checksum
 			if (data == _crc_ibutton_update(_crc_ibutton_update(0, action), param))
-				cmd(action,param);
+				control_cmd(action,param);
 			id = 0;
 			rfxx_wrt_cmd(0xCA81); // reset fifo
 			rfxx_wrt_cmd(0xCA83); //  - || -
@@ -220,12 +223,15 @@ int main(void)
 
 	// things just needed for debugging
 	//DDRA = 0xff;
+
 	init_sensor();
+	init_control();
 
 
 	// enable external interrupt 2
 	GICR  = (1 << INT2);
 	
+#if 0
 	// 
 	DDR_ENGINE |= (1 << ENGINE_LEFT) | (1 << ENGINE_RIGHT) | (1 << ENGINE_ENABLE);
 	PORT_ENGINE &= ~(1 << ENGINE_ENABLE);
@@ -233,18 +239,20 @@ int main(void)
 	// 
 	DDR_DIRECTION |= (1 << DIR_LEFT) | (1 << DIR_RIGHT) | (1 << DIR_EN);
 	DIRECTION &= ~(1 << DIR_EN);
-
+#endif
 	// Interrupt PIN = Input
 	RFXX_nIRQ_PORT &= ~(1 << RFXX_nIRQ);
 
 	// enable receiver's FIFO
 	rfxx_wrt_cmd(0xCA83);
 
+
+#if 0
 	// PWM configuration
 	OCR1A   = 0;
 	TCCR1A  =  (1 << COM1A1) | (1 << WGM12) | (1 << WGM11) | (1 << WGM10);
 	TCCR1B  =  (1 << CS10);
-
+#endif
 
 	DDRC  |=  (1 << DDC5);
 	PORTC |=  (1 << PC5);

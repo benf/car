@@ -1,6 +1,8 @@
 #include <avr/io.h>
 #include "sensor.h"
 
+#include "control.h"
+
 uint16_t read_adc(uint8_t channel)
 {
 	uint8_t i;
@@ -65,7 +67,7 @@ void sensor_irq() {
 		hinderniss = 1;
 		PORTC |=  (1 << PC3);
 		if (!rwd)
-		cmd('S', 0);
+			control_cmd('S', 0);
 	} else {
 		hinderniss = 0;
 		PORTC &= ~(1 << PC3);

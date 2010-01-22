@@ -1,7 +1,7 @@
 all: sender.hex empfaenger.hex
 
 sender.elf:     sender.o rfxx.o usart.o
-empfaenger.elf: empfaenger.o rfxx.o sensor.o
+empfaenger.elf: empfaenger.o rfxx.o sensor.o control.o
 
 
 TYPE = atmega16
