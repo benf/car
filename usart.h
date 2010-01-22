@@ -3,11 +3,11 @@
 
 #include "usart_cfg.h"
 
-unsigned char usart_receive(void);
+uint8_t usart_receive(void);
 
-void usart_transmit(unsigned char data);
+void usart_transmit(uint8_t data);
 
-int uputc(unsigned char c);
+int uputc(char c);
  
 void uart_puts(char *s);
 
