@@ -183,6 +183,10 @@
 
 		Beendet wird ein Transfer auf Senderseite wiederrum durch die PREAMBLE.
 
+		Auf Empfängerseite wird ein Interrupt ausgelöst sobald 8-Bit emfpangen worden sind.
+		Dieser wird mittels externem Hardware Interrupt am Microcontroller registriert.
+		Sodass der Microcontroller das auslesen aus dem Funkmodul beginnt.
+
 	\subsection{Probleme}
 		Während der Entwicklung gab es immer wieder Probleme mit undokumentierten Eigentschaften,
 		z.b. dass der Chip beim Starten (vom Hersteller auch POR Power-On Reset genannt)
@@ -192,7 +196,17 @@
 		Weiterhin ist das SPI-Interface teilweise verbuggt, sodass Befehle redundant verschickt 
 		werden mussten.
 		
-		%% TODO: add example
+		Beispiel:
+		Auf Empfängerseite wird ein Interrupt ausgelöst, danach sollten nun Daten transferriert werden.
+		Der Microntroller könnte also einfach den Befehl - der im Datenblatt steht - zum Auslesen des FIFO`s
+		an das Funkmodul senden, doch das reicht nicht, zusätzlich musste vorher ein sogenannter
+		"Status Read Command" gesendet werden, der 24-bit zurückliefert. Die ersten 16bit sind
+		Statusinformationen die letzten 8-bit die Daten.
+		Der Lesebefehl schickt seine Daten auf den letzten 8-bit. 
+		Die Daten werden also zeimal hintereinander ausgelesen.
+		
+		Alles in allem sind die Funk-Ergebnisse und die Reichweite des Moduls aber so überzeugnend, dass
+		diese Schwachpunkte zu verkraften sind.
 
 \newpage
 
