@@ -1,3 +1,6 @@
+#ifndef _RFXX_H_
+#define _RFXX_H_
+
 void rfxx_init(void);
 
 void rf12_init(uint8_t transfer);
@@ -27,4 +30,6 @@ void rf01_init(void);
 
 void rf02_init(void);
 #endif
+
+#endif /* _RFXX_H_ */
 /* vim: set sts=0 fenc=utf-8: */
